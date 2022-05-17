@@ -83,6 +83,7 @@
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Data.DoctorModel.datasource" />
     <None Include="Properties\DataSources\Data.PatientModel.datasource" />
+    <None Include="Properties\DataSources\Data.RoomModel.datasource" />
     <None Include="Properties\DataSources\Data.SpecializationModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -30,11 +30,17 @@ namespace Data
         {
             return LastName + " " + FirstName;
         }
+
+        public string ToString_ScheduleHeader()
+        {
+            return "";
+        }
     }
 
     public class RoomModel
     {
-        private int Number { get; set; }
+        public int ID { get; set; }
+        public int Number { get; set; }
     }
 
     public class PatientModel

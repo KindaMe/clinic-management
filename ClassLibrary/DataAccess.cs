@@ -67,6 +67,16 @@ namespace Data
             }
         }
 
+        public static BindingList<RoomModel> LoadRooms()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<RoomModel>("select * from Rooms order by Number", new DynamicParameters());
+
+                return new BindingList<RoomModel>(output.ToList());
+            }
+        }
+
         public static BindingList<WorkScheduleModel> LoadSchedule()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
