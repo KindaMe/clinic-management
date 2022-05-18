@@ -13,10 +13,16 @@ namespace Data
 {
     public class DataAccess
     {
+        #region Connection String
+
         private static string LoadConnectionString(string id = "Default")
         {
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;
         }
+
+        #endregion Connection String
+
+        #region Read Data
 
         public static BindingList<DoctorModel> LoadDoctors()
         {
@@ -86,5 +92,22 @@ namespace Data
                 return new BindingList<WorkScheduleModel>(output.ToList());
             }
         }
+
+        #endregion Read Data
+
+        #region Write Data
+
+        //
+
+        public static void AddSchedule(WorkScheduleModel NewSchedule)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<RoomModel>("select * from Rooms order by Number", new DynamicParameters());
+                cnn.Execute("insert into Schedule (Doctor_ID,Date,TimeStart,TimeEnd,Room_ID) values (@Doctor_ID,@Date,@TimeStart,@TimeEnd,@Room_ID)", NewSchedule);
+            }
+        }
+
+        #endregion Write Data
     }
 }

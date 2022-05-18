@@ -41,6 +41,11 @@ namespace Data
     {
         public int ID { get; set; }
         public int Number { get; set; }
+
+        public override string ToString()
+        {
+            return Number.ToString();
+        }
     }
 
     public class PatientModel

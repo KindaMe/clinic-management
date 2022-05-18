@@ -1,14 +1,12 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Data;
+using Z3_F.DialogForms;
 
 namespace Z3_F
 {
@@ -83,6 +81,8 @@ namespace Z3_F
                     for (int i = StartingHour; i < EndingHour; i++)
                     {
                         dataGridView_schedule.Rows[i].Cells[colIndex].Style.BackColor = Color.Green;
+                        dataGridView_schedule.Rows[i].Cells[colIndex].Style.ForeColor = Color.White;
+                        dataGridView_schedule.Rows[i].Cells[colIndex].Value = Rooms.ToList().Find(x => x.ID == schedule.Room_ID).Number;
                     }
                 }
             }
@@ -93,6 +93,7 @@ namespace Z3_F
         #region Tab_Schedule
 
         private bool ChangeDisabled = false;
+        private int CurrentColumn = -1;
 
         private void InitSchedule()
         {
@@ -106,10 +107,14 @@ namespace Z3_F
                "20:00 - 21:00", "21:00 - 22:00", "22:00 - 23:00", "23:00 - 24:00",
             };
 
-            foreach (string text in Hours)
-                dataGridView_schedule.Rows.Add(text);
-
             AddMissingColumns();
+
+            dataGridView_schedule.Rows.Add(Hours.Count);
+
+            for (int i = 0; i < dataGridView_schedule.Rows.Count; i++)
+            {
+                dataGridView_schedule.Rows[i].HeaderCell.Value = Hours[i];
+            }
         }
 
         private void AddMissingColumns()
@@ -129,8 +134,11 @@ namespace Z3_F
             ChangeDisabled = true;
 
             foreach (DataGridViewRow row in dataGridView_schedule.Rows)
-                for (int i = 1; i < row.Cells.Count; i++)
+                for (int i = 0; i < row.Cells.Count; i++)
+                {
                     row.Cells[i].Style.BackColor = Color.White;
+                    row.Cells[i].Value = null;
+                }
 
             ReadSchedule();
 
@@ -140,31 +148,126 @@ namespace Z3_F
 
         private void dataGridView_schedule_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
         {
-            if (e.Cell.ColumnIndex != 0 && e.Cell.Selected == true && ChangeDisabled == false)
-            {
-                if (e.Cell.Style.BackColor == Color.Green)
-                {
-                    e.Cell.Style.BackColor = Color.White;
-                    e.Cell.Style.SelectionBackColor = Color.White;
-                }
-                else
-                {
-                    e.Cell.Style.BackColor = Color.Green;
-                    e.Cell.Style.SelectionBackColor = Color.Green;
-                }
-            }
+            if (e.Cell.ColumnIndex != CurrentColumn)
+                e.Cell.Selected = false;
         }
 
-        private void dataGridView_schedule_MouseLeave(object sender, EventArgs e)
+        private bool IsRoomFree(RoomModel RoomToCheck, int StartingHour, int EndingHour)
         {
-            dataGridView_schedule.ClearSelection();
+            for (int i = StartingHour; i <= EndingHour; i++)
+            {
+                foreach (DataGridViewCell cell in dataGridView_schedule.Rows[i].Cells)
+                {
+                    if (cell.Value != null)
+                    {
+                        if ((int)cell.Value == RoomToCheck.Number)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         private void dataGridView_schedule_MouseUp(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left)
+                return;
+
+            List<RoomModel> FreeRooms = new List<RoomModel>();
+            int StartingHour = 23;
+            foreach (DataGridViewCell cell in dataGridView_schedule.SelectedCells)
+            {
+                if (cell.RowIndex < StartingHour)
+                    StartingHour = cell.RowIndex;
+            }
+            int EndingHour = StartingHour;
+            foreach (DataGridViewCell cell in dataGridView_schedule.SelectedCells)
+            {
+                if (cell.RowIndex > EndingHour)
+                    EndingHour = cell.RowIndex;
+            }
+
+            foreach (RoomModel room in Rooms)
+            {
+                if (IsRoomFree(room, StartingHour, EndingHour) == true)
+                {
+                    FreeRooms.Add(room);
+                }
+            }
+
+            if (FreeRooms.Count == 0)
+            {
+                MessageBox.Show("Brak wolnych gabinetów!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                //int Doctor_ID
+                int newDoctor_ID = int.Parse(Doctors[dataGridView_schedule.SelectedCells[0].ColumnIndex].ID.ToString());
+
+                //DateTime Date
+                DateTime newDate = new DateTime(
+                        monthCalendar_schedule.SelectionStart.Date.Year,
+                        monthCalendar_schedule.SelectionStart.Date.Month,
+                        monthCalendar_schedule.SelectionStart.Date.Day);
+
+                //DateTime TimeStart
+                DateTime newTimeStart = new DateTime(
+                        monthCalendar_schedule.SelectionStart.Date.Year,
+                        monthCalendar_schedule.SelectionStart.Date.Month,
+                        monthCalendar_schedule.SelectionStart.Date.Day,
+                        StartingHour,
+                        0,
+                        0);
+
+                //DateTime TimeEnd
+                DateTime newTimeEnd = new DateTime(
+                monthCalendar_schedule.SelectionStart.Date.Year,
+                monthCalendar_schedule.SelectionStart.Date.Month,
+                monthCalendar_schedule.SelectionStart.Date.Day,
+                EndingHour + 1,
+                0,
+                0);
+
+                WorkScheduleModel NewSchedule = new WorkScheduleModel
+                {
+                    Doctor_ID = newDoctor_ID,
+                    Date = newDate,
+                    TimeStart = newTimeStart,
+                    TimeEnd = newTimeEnd
+                };
+
+                AddSchedule_EnterRoom ChooseRoomDialog = new AddSchedule_EnterRoom(Cursor.Position.X, Cursor.Position.Y, NewSchedule, FreeRooms);
+                ChooseRoomDialog.ShowDialog();
+                ReadSchedule();
+            }
+
+            CurrentColumn = -1;
             dataGridView_schedule.ClearSelection();
         }
 
+        private void dataGridView_schedule_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (CurrentColumn == -1)
+                {
+                    CurrentColumn = e.ColumnIndex;
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
+
         #endregion Tab_Schedule
+
+        #region Tab_Appointment
+
+        //
+
+        #endregion Tab_Appointment
     }
 }

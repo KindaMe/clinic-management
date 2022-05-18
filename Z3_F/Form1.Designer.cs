@@ -32,15 +32,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -53,6 +54,11 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.monthCalendar_schedule = new System.Windows.Forms.MonthCalendar();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.dataGridView_schedule = new System.Windows.Forms.DataGridView();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -63,10 +69,6 @@
             this.dataGridView_DoctorsSpecializations = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView_Doctors = new System.Windows.Forms.DataGridView();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.monthCalendar_schedule = new System.Windows.Forms.MonthCalendar();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.dataGridView_schedule = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -76,8 +78,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dataGridView_Specializations = new System.Windows.Forms.DataGridView();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.Hours = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.button10 = new System.Windows.Forms.Button();
@@ -95,6 +95,7 @@
             this.addressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numberPhoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.emailDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.doctorModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -103,7 +104,6 @@
             this.specializationModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.numberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.roomModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -112,6 +112,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_schedule)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -119,16 +123,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_DoctorsSpecializations)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Doctors)).BeginInit();
-            this.tabPage4.SuspendLayout();
-            this.groupBox10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_schedule)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Specializations)).BeginInit();
             this.tabPage5.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.groupBox12.SuspendLayout();
@@ -141,6 +141,7 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -152,6 +153,15 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1264, 561);
             this.tabControl1.TabIndex = 1;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(1256, 535);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Rejestracja";
+            this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
@@ -340,6 +350,93 @@
             this.button9.Text = "Edytuj";
             this.button9.UseVisualStyleBackColor = true;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.groupBox8);
+            this.tabPage4.Controls.Add(this.groupBox10);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1256, 535);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Grafik";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.monthCalendar_schedule);
+            this.groupBox8.Location = new System.Drawing.Point(8, 3);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(251, 524);
+            this.groupBox8.TabIndex = 5;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Data";
+            // 
+            // monthCalendar_schedule
+            // 
+            this.monthCalendar_schedule.Location = new System.Drawing.Point(12, 16);
+            this.monthCalendar_schedule.MaxSelectionCount = 1;
+            this.monthCalendar_schedule.Name = "monthCalendar_schedule";
+            this.monthCalendar_schedule.TabIndex = 4;
+            this.monthCalendar_schedule.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar_schedule_DateChanged);
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.dataGridView_schedule);
+            this.groupBox10.Location = new System.Drawing.Point(265, 3);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(983, 524);
+            this.groupBox10.TabIndex = 3;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Grafik";
+            // 
+            // dataGridView_schedule
+            // 
+            this.dataGridView_schedule.AllowUserToAddRows = false;
+            this.dataGridView_schedule.AllowUserToDeleteRows = false;
+            this.dataGridView_schedule.AllowUserToResizeColumns = false;
+            this.dataGridView_schedule.AllowUserToResizeRows = false;
+            this.dataGridView_schedule.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
+            this.dataGridView_schedule.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Bahnschrift SemiCondensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_schedule.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridView_schedule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_schedule.Cursor = System.Windows.Forms.Cursors.Hand;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_schedule.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridView_schedule.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_schedule.EnableHeadersVisualStyles = false;
+            this.dataGridView_schedule.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView_schedule.Name = "dataGridView_schedule";
+            this.dataGridView_schedule.ReadOnly = true;
+            this.dataGridView_schedule.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Bahnschrift SemiCondensed", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_schedule.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridView_schedule.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataGridView_schedule.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dataGridView_schedule.Size = new System.Drawing.Size(977, 505);
+            this.dataGridView_schedule.TabIndex = 2;
+            this.dataGridView_schedule.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_schedule_CellMouseDown);
+            this.dataGridView_schedule.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.dataGridView_schedule_CellStateChanged);
+            this.dataGridView_schedule.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridView_schedule_MouseUp);
+            // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.groupBox5);
@@ -507,75 +604,6 @@
             this.dataGridView_Doctors.Size = new System.Drawing.Size(731, 448);
             this.dataGridView_Doctors.TabIndex = 0;
             // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.groupBox8);
-            this.tabPage4.Controls.Add(this.groupBox10);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1256, 535);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Grafik";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // monthCalendar_schedule
-            // 
-            this.monthCalendar_schedule.CalendarDimensions = new System.Drawing.Size(1, 3);
-            this.monthCalendar_schedule.Location = new System.Drawing.Point(12, 35);
-            this.monthCalendar_schedule.MaxSelectionCount = 1;
-            this.monthCalendar_schedule.Name = "monthCalendar_schedule";
-            this.monthCalendar_schedule.TabIndex = 4;
-            this.monthCalendar_schedule.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar_schedule_DateChanged);
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.dataGridView_schedule);
-            this.groupBox10.Location = new System.Drawing.Point(265, 3);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(983, 524);
-            this.groupBox10.TabIndex = 3;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Grafik";
-            // 
-            // dataGridView_schedule
-            // 
-            this.dataGridView_schedule.AllowUserToAddRows = false;
-            this.dataGridView_schedule.AllowUserToDeleteRows = false;
-            this.dataGridView_schedule.AllowUserToResizeColumns = false;
-            this.dataGridView_schedule.AllowUserToResizeRows = false;
-            this.dataGridView_schedule.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            this.dataGridView_schedule.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Bahnschrift SemiCondensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView_schedule.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView_schedule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_schedule.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Hours});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView_schedule.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridView_schedule.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_schedule.EnableHeadersVisualStyles = false;
-            this.dataGridView_schedule.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView_schedule.Name = "dataGridView_schedule";
-            this.dataGridView_schedule.ReadOnly = true;
-            this.dataGridView_schedule.RowHeadersVisible = false;
-            this.dataGridView_schedule.Size = new System.Drawing.Size(977, 505);
-            this.dataGridView_schedule.TabIndex = 2;
-            this.dataGridView_schedule.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.dataGridView_schedule_CellStateChanged);
-            this.dataGridView_schedule.MouseLeave += new System.EventHandler(this.dataGridView_schedule_MouseLeave);
-            this.dataGridView_schedule.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridView_schedule_MouseUp);
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.groupBox4);
@@ -700,30 +728,6 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Gabinety";
             this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.monthCalendar_schedule);
-            this.groupBox8.Location = new System.Drawing.Point(8, 3);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(251, 524);
-            this.groupBox8.TabIndex = 5;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Data";
-            // 
-            // Hours
-            // 
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Bahnschrift SemiCondensed", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
-            this.Hours.DefaultCellStyle = dataGridViewCellStyle5;
-            this.Hours.Frozen = true;
-            this.Hours.HeaderText = "Godziny";
-            this.Hours.Name = "Hours";
-            this.Hours.ReadOnly = true;
-            this.Hours.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // groupBox11
             // 
@@ -907,6 +911,13 @@
             this.emailDataGridViewTextBoxColumn.ReadOnly = true;
             this.emailDataGridViewTextBoxColumn.Width = 250;
             // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Nazwa";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // doctorModelBindingSource
             // 
             this.doctorModelBindingSource.DataSource = typeof(Data.DoctorModel);
@@ -954,13 +965,6 @@
             // 
             this.roomModelBindingSource.DataSource = typeof(Data.RoomModel);
             // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Nazwa";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -977,6 +981,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_schedule)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -984,16 +992,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_DoctorsSpecializations)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Doctors)).EndInit();
-            this.tabPage4.ResumeLayout(false);
-            this.groupBox10.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_schedule)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Specializations)).EndInit();
             this.tabPage5.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
@@ -1061,7 +1065,6 @@
         private System.Windows.Forms.DataGridView dataGridView_schedule;
         private System.Windows.Forms.MonthCalendar monthCalendar_schedule;
         private System.Windows.Forms.GroupBox groupBox8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Hours;
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Button button10;
@@ -1072,6 +1075,7 @@
         private System.Windows.Forms.BindingSource roomModelBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn numberDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.TabPage tabPage6;
     }
 }
 

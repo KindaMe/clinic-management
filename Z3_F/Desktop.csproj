@@ -51,6 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DialogForms\AddAppointment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogForms\AddAppointment.Designer.cs">
+      <DependentUpon>AddAppointment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DialogForms\AddSchedule_EnterRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogForms\AddSchedule_EnterRoom.Designer.cs">
+      <DependentUpon>AddSchedule_EnterRoom.cs</DependentUpon>
+    </Compile>
     <Compile Include="DialogForms\AddDoctor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +77,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DialogForms\AddAppointment.resx">
+      <DependentUpon>AddAppointment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogForms\AddSchedule_EnterRoom.resx">
+      <DependentUpon>AddSchedule_EnterRoom.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DialogForms\AddDoctor.resx">
       <DependentUpon>AddDoctor.cs</DependentUpon>
     </EmbeddedResource>
