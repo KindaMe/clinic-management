@@ -44,7 +44,7 @@ namespace Z3_F.DialogForms
             NewSchedule.Room_ID = ((RoomModel)comboBox1.SelectedItem).ID;
 
             //prolly should just delete all schedules for a doctor in a currently chosen day and run a loop through rows to make new schedules for connected hours
-            DataAccess.AddSchedule(NewSchedule);
+            DataAccess.InsertSchedule(NewSchedule);
 
             this.Close();
         }

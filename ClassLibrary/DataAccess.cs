@@ -99,12 +99,27 @@ namespace Data
 
         //
 
-        public static void AddSchedule(WorkScheduleModel NewSchedule)
+        public static void InsertSchedule(WorkScheduleModel NewSchedule)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 var output = cnn.Query<RoomModel>("select * from Rooms order by Number", new DynamicParameters());
                 cnn.Execute("insert into Schedule (Doctor_ID,Date,TimeStart,TimeEnd,Room_ID) values (@Doctor_ID,@Date,@TimeStart,@TimeEnd,@Room_ID)", NewSchedule);
+            }
+        }
+
+        public static void UpdateSchedule(WorkScheduleModel ScheduleToUpdate)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                if (ScheduleToUpdate.TimeStart != ScheduleToUpdate.TimeEnd)
+                {
+                    cnn.Execute("update Schedule SET TimeStart = @TimeStart,TimeEnd = @TimeEnd WHERE ID = @ID ", ScheduleToUpdate);
+                }
+                else
+                {
+                    cnn.Execute("delete from Schedule where ID=@ID", ScheduleToUpdate);
+                }
             }
         }
 

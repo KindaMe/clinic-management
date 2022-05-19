@@ -73,6 +73,7 @@ namespace Data
 
     public class WorkScheduleModel
     {
+        public int ID { get; set; }
         public int Doctor_ID { get; set; }
         public DateTime Date { get; set; }
         public DateTime TimeStart { get; set; }

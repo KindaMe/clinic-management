@@ -66,6 +66,13 @@ namespace Z3_F
         {
             Schedule = DataAccess.LoadSchedule();
 
+            foreach (DataGridViewRow row in dataGridView_schedule.Rows)
+                for (int i = 0; i < row.Cells.Count; i++)
+                {
+                    row.Cells[i].Style.BackColor = Color.White;
+                    row.Cells[i].Value = null;
+                }
+
             AddMissingColumns();
 
             foreach (WorkScheduleModel schedule in Schedule)
@@ -133,13 +140,6 @@ namespace Z3_F
         {
             ChangeDisabled = true;
 
-            foreach (DataGridViewRow row in dataGridView_schedule.Rows)
-                for (int i = 0; i < row.Cells.Count; i++)
-                {
-                    row.Cells[i].Style.BackColor = Color.White;
-                    row.Cells[i].Value = null;
-                }
-
             ReadSchedule();
 
             dataGridView_schedule.ClearSelection();
@@ -170,77 +170,123 @@ namespace Z3_F
             return true;
         }
 
+        private bool AreAllSelectedCellsFree()
+        {
+            foreach (DataGridViewCell cell in dataGridView_schedule.SelectedCells)
+            {
+                if (cell.Value != null)
+                    return false;
+            }
+            return true;
+        }
+
         private void dataGridView_schedule_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Left)
-                return;
-
-            List<RoomModel> FreeRooms = new List<RoomModel>();
-            int StartingHour = 23;
-            foreach (DataGridViewCell cell in dataGridView_schedule.SelectedCells)
+            if (dataGridView_schedule.SelectedCells.Count > 0)
             {
-                if (cell.RowIndex < StartingHour)
-                    StartingHour = cell.RowIndex;
-            }
-            int EndingHour = StartingHour;
-            foreach (DataGridViewCell cell in dataGridView_schedule.SelectedCells)
-            {
-                if (cell.RowIndex > EndingHour)
-                    EndingHour = cell.RowIndex;
-            }
-
-            foreach (RoomModel room in Rooms)
-            {
-                if (IsRoomFree(room, StartingHour, EndingHour) == true)
+                if (e.Button == MouseButtons.Left)
                 {
-                    FreeRooms.Add(room);
+                    if (AreAllSelectedCellsFree() == false)
+                    {
+                        MessageBox.Show("Nie wszystkie wybrane godziny są wolne!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        List<RoomModel> FreeRooms = new List<RoomModel>();
+                        int StartingHour = 23;
+                        foreach (DataGridViewCell cell in dataGridView_schedule.SelectedCells)
+                        {
+                            if (cell.RowIndex < StartingHour)
+                                StartingHour = cell.RowIndex;
+                        }
+                        int EndingHour = StartingHour;
+                        foreach (DataGridViewCell cell in dataGridView_schedule.SelectedCells)
+                        {
+                            if (cell.RowIndex > EndingHour)
+                                EndingHour = cell.RowIndex;
+                        }
+
+                        foreach (RoomModel room in Rooms)
+                        {
+                            if (IsRoomFree(room, StartingHour, EndingHour) == true)
+                            {
+                                FreeRooms.Add(room);
+                            }
+                        }
+
+                        if (FreeRooms.Count == 0)
+                        {
+                            MessageBox.Show("Brak wolnych gabinetów!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            //int Doctor_ID
+                            int newDoctor_ID = int.Parse(Doctors[dataGridView_schedule.SelectedCells[0].ColumnIndex].ID.ToString());
+
+                            //DateTime Date
+                            DateTime newDate = new DateTime(
+                                    monthCalendar_schedule.SelectionStart.Date.Year,
+                                    monthCalendar_schedule.SelectionStart.Date.Month,
+                                    monthCalendar_schedule.SelectionStart.Date.Day);
+
+                            //DateTime TimeStart
+                            DateTime newTimeStart = new DateTime(
+                                    monthCalendar_schedule.SelectionStart.Date.Year,
+                                    monthCalendar_schedule.SelectionStart.Date.Month,
+                                    monthCalendar_schedule.SelectionStart.Date.Day,
+                                    StartingHour,
+                                    0,
+                                    0);
+
+                            //DateTime TimeEnd
+                            DateTime newTimeEnd = new DateTime(
+                            monthCalendar_schedule.SelectionStart.Date.Year,
+                            monthCalendar_schedule.SelectionStart.Date.Month,
+                            monthCalendar_schedule.SelectionStart.Date.Day,
+                            EndingHour + 1,
+                            0,
+                            0);
+
+                            WorkScheduleModel NewSchedule = new WorkScheduleModel
+                            {
+                                Doctor_ID = newDoctor_ID,
+                                Date = newDate,
+                                TimeStart = newTimeStart,
+                                TimeEnd = newTimeEnd
+                            };
+
+                            AddSchedule_EnterRoom ChooseRoomDialog = new AddSchedule_EnterRoom(Cursor.Position.X, Cursor.Position.Y, NewSchedule, FreeRooms);
+                            ChooseRoomDialog.ShowDialog();
+                            ReadSchedule();
+                        }
+                    }
                 }
-            }
-
-            if (FreeRooms.Count == 0)
-            {
-                MessageBox.Show("Brak wolnych gabinetów!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                //int Doctor_ID
-                int newDoctor_ID = int.Parse(Doctors[dataGridView_schedule.SelectedCells[0].ColumnIndex].ID.ToString());
-
-                //DateTime Date
-                DateTime newDate = new DateTime(
-                        monthCalendar_schedule.SelectionStart.Date.Year,
-                        monthCalendar_schedule.SelectionStart.Date.Month,
-                        monthCalendar_schedule.SelectionStart.Date.Day);
-
-                //DateTime TimeStart
-                DateTime newTimeStart = new DateTime(
-                        monthCalendar_schedule.SelectionStart.Date.Year,
-                        monthCalendar_schedule.SelectionStart.Date.Month,
-                        monthCalendar_schedule.SelectionStart.Date.Day,
-                        StartingHour,
-                        0,
-                        0);
-
-                //DateTime TimeEnd
-                DateTime newTimeEnd = new DateTime(
-                monthCalendar_schedule.SelectionStart.Date.Year,
-                monthCalendar_schedule.SelectionStart.Date.Month,
-                monthCalendar_schedule.SelectionStart.Date.Day,
-                EndingHour + 1,
-                0,
-                0);
-
-                WorkScheduleModel NewSchedule = new WorkScheduleModel
+                else if (e.Button == MouseButtons.Right)
                 {
-                    Doctor_ID = newDoctor_ID,
-                    Date = newDate,
-                    TimeStart = newTimeStart,
-                    TimeEnd = newTimeEnd
-                };
+                    foreach (DataGridViewCell cell in dataGridView_schedule.SelectedCells)
+                    {
+                        //might need to work a lil bit more on that one xDD
+                        WorkScheduleModel ScheduleToEdit = Schedule.ToList().Find(
+                        x => (Doctors.ToList().FindIndex(y => y.ID == x.Doctor_ID)) == cell.ColumnIndex
+                        && x.Date.ToShortDateString() == monthCalendar_schedule.SelectionStart.ToShortDateString()
+                        && x.TimeStart.Hour <= cell.RowIndex
+                        && x.TimeEnd.Hour > cell.RowIndex);
 
-                AddSchedule_EnterRoom ChooseRoomDialog = new AddSchedule_EnterRoom(Cursor.Position.X, Cursor.Position.Y, NewSchedule, FreeRooms);
-                ChooseRoomDialog.ShowDialog();
-                ReadSchedule();
+                        if (ScheduleToEdit != null)
+                        {
+                            if (cell.RowIndex - ScheduleToEdit.TimeStart.Hour < ScheduleToEdit.TimeEnd.Hour - cell.RowIndex)
+                            {
+                                ScheduleToEdit.TimeStart = ScheduleToEdit.TimeStart.AddHours((cell.RowIndex + 1) - ScheduleToEdit.TimeStart.Hour);
+                            }
+                            else
+                            {
+                                ScheduleToEdit.TimeEnd = ScheduleToEdit.TimeEnd.AddHours(cell.RowIndex - ScheduleToEdit.TimeEnd.Hour);
+                            }
+                            DataAccess.UpdateSchedule(ScheduleToEdit);
+                            ReadSchedule();
+                        }
+                    }
+                }
             }
 
             CurrentColumn = -1;
@@ -255,6 +301,15 @@ namespace Z3_F
                 {
                     CurrentColumn = e.ColumnIndex;
                 }
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                if (CurrentColumn == -1)
+                {
+                    CurrentColumn = e.ColumnIndex;
+                }
+
+                dataGridView_schedule.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = true;
             }
             else
             {
