@@ -11,11 +11,6 @@ namespace Data
     {
         public int ID { get; set; }
         public string Name { get; set; }
-
-        public override string ToString()
-        {
-            return Name;
-        }
     }
 
     public class DoctorModel
@@ -60,6 +55,11 @@ namespace Data
 
         public string Email { get; set; }
         public BindingList<AuthorizedPersonModel> AuthorizedPeople { get; set; }
+
+        public override string ToString()
+        {
+            return LastName + " " + FirstName;
+        }
     }
 
     public class AuthorizedPersonModel
@@ -83,9 +83,15 @@ namespace Data
 
     public class AppointmentModel
     {
-        private PatientModel Patient { get; set; }
-        private DoctorModel Doctor { get; set; }
-        private DateTime DateAndTime { get; set; }
-        private RoomModel Room { get; set; }
+        public int ID { get; set; }
+        public int Patient_ID { get; set; }
+        public int Doctor_ID { get; set; }
+        public DateTime DateAndTime { get; set; }
+        public int Room_ID { get; set; }
+    }
+
+    public class FreeAppointments
+    {
+        public DateTime time { get; set; }
     }
 }

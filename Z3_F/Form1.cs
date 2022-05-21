@@ -321,8 +321,27 @@ namespace Z3_F
 
         #region Tab_Appointment
 
-        //
+        private void button13_Click(object sender, EventArgs e)
+        {
+            using (AddAppointment AddAppointmentDialog = new AddAppointment(Specializations, Doctors, Schedule, Patients))
+            {
+                AddAppointmentDialog.ShowDialog();
+            }
+        }
 
         #endregion Tab_Appointment
+
+        #region Tab_Patient
+
+        private void button_Patient_Add_Click(object sender, EventArgs e)
+        {
+            using (AddPatient AddPatientDialog = new AddPatient())
+            {
+                AddPatientDialog.ShowDialog();
+            }
+            ReadPatients();
+        }
+
+        #endregion Tab_Patient
     }
 }

@@ -33,7 +33,7 @@ namespace Data
 
                 foreach (DoctorModel doc in temp)
                 {
-                    var output2 = cnn.Query<SpecializationModel>("select Specializations.Name from Doctors_Specializations " +
+                    var output2 = cnn.Query<SpecializationModel>("select Specializations.ID,Specializations.Name from Doctors_Specializations " +
                             "inner join Specializations on Doctors_Specializations.Specialization_ID = Specializations.ID " +
                             "where Doctor_ID = @ID", doc);
                     doc.Specializations = new BindingList<SpecializationModel>(output2.ToList());
@@ -120,6 +120,22 @@ namespace Data
                 {
                     cnn.Execute("delete from Schedule where ID=@ID", ScheduleToUpdate);
                 }
+            }
+        }
+
+        public static void InsertPatient(PatientModel NewPatient)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("insert into Patients (FirstName,LastName,NumberID,BornYear,Address,NumberPhone,Email) values (@FirstName,@LastName,@NumberID,@BornYear,@Address,@NumberPhone,@Email)", NewPatient);
+            }
+        }
+
+        public static void InsertAppointment(AppointmentModel NewAppointment)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("insert into Appointments (Patient_ID,Doctor_ID,DateAndTime,Room_ID) values (@Patient_ID,@Doctor_ID,@DateAndTime,@Room_ID)", NewAppointment);
             }
         }
 

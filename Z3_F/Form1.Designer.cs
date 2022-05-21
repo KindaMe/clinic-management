@@ -42,6 +42,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.button13 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -52,7 +53,7 @@
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.button_Patient_Add = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -105,6 +106,7 @@
             this.numberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.roomModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -156,12 +158,23 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.button13);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Size = new System.Drawing.Size(1256, 535);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Rejestracja";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(350, 199);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(75, 23);
+            this.button13.TabIndex = 0;
+            this.button13.Text = "button13";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // tabPage3
             // 
@@ -309,7 +322,7 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.Controls.Add(this.button7, 2, 0);
-            this.tableLayoutPanel3.Controls.Add(this.button8, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.button_Patient_Add, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.button9, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 16);
@@ -330,15 +343,16 @@
             this.button7.Text = "Usuń";
             this.button7.UseVisualStyleBackColor = true;
             // 
-            // button8
+            // button_Patient_Add
             // 
-            this.button8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button8.Location = new System.Drawing.Point(3, 3);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(405, 23);
-            this.button8.TabIndex = 8;
-            this.button8.Text = "Dodaj";
-            this.button8.UseVisualStyleBackColor = true;
+            this.button_Patient_Add.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_Patient_Add.Location = new System.Drawing.Point(3, 3);
+            this.button_Patient_Add.Name = "button_Patient_Add";
+            this.button_Patient_Add.Size = new System.Drawing.Size(405, 23);
+            this.button_Patient_Add.TabIndex = 8;
+            this.button_Patient_Add.Text = "Dodaj";
+            this.button_Patient_Add.UseVisualStyleBackColor = true;
+            this.button_Patient_Add.Click += new System.EventHandler(this.button_Patient_Add_Click);
             // 
             // button9
             // 
@@ -974,6 +988,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.tabControl1.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
@@ -1039,7 +1054,7 @@
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button_Patient_Add;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.DataGridView dataGridView2;
@@ -1076,6 +1091,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn numberDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.Button button13;
     }
 }
 

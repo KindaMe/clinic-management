@@ -81,8 +81,8 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
-            this.Name = "AddAppointment_EnterRoom";
-            this.Text = "Dodaj Dyżur";
+            this.Name = "AddSchedule_EnterRoom";
+            this.Text = "Nowy Dyżur";
             this.Load += new System.EventHandler(this.AddSchedule_EnterRoom_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

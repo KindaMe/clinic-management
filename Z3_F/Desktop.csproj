@@ -57,6 +57,12 @@
     <Compile Include="DialogForms\AddAppointment.Designer.cs">
       <DependentUpon>AddAppointment.cs</DependentUpon>
     </Compile>
+    <Compile Include="DialogForms\AddPatient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogForms\AddPatient.Designer.cs">
+      <DependentUpon>AddPatient.cs</DependentUpon>
+    </Compile>
     <Compile Include="DialogForms\AddSchedule_EnterRoom.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,12 +85,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DialogForms\AddAppointment.resx">
       <DependentUpon>AddAppointment.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogForms\AddPatient.resx">
+      <DependentUpon>AddPatient.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogForms\AddSchedule_EnterRoom.resx">
       <DependentUpon>AddSchedule_EnterRoom.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogForms\AddDoctor.resx">
       <DependentUpon>AddDoctor.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -99,10 +111,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\Data.AppointmentModel.datasource" />
+    <None Include="Properties\DataSources\Data.AuthorizedPersonModel.datasource" />
     <None Include="Properties\DataSources\Data.DoctorModel.datasource" />
+    <None Include="Properties\DataSources\Data.FreeAppointments.datasource" />
     <None Include="Properties\DataSources\Data.PatientModel.datasource" />
     <None Include="Properties\DataSources\Data.RoomModel.datasource" />
     <None Include="Properties\DataSources\Data.SpecializationModel.datasource" />
+    <None Include="Properties\DataSources\Z3_F.DialogForms.FreeAppointments.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

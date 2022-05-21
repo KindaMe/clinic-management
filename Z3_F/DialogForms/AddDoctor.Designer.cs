@@ -200,7 +200,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button_Edit);
             this.Name = "AddDoctor";
-            this.Text = "AddDoctor";
+            this.Text = "Nowy Lekarz";
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Year)).EndInit();
