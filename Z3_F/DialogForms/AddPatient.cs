@@ -18,7 +18,11 @@ namespace Z3_F.DialogForms
         public AddPatient()
         {
             InitializeComponent();
-            NewPatient = new PatientModel();
+            NewPatient = new PatientModel
+            {
+                BornYear = (int)numericUpDown1.Value
+            };
+
             PatientModelBindingSource.DataSource = NewPatient;
         }
 
@@ -36,13 +40,23 @@ namespace Z3_F.DialogForms
         {
             if (textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "" && textBox4.Text != "" && textBox5.Text != "" && textBox6.Text != "")
             {
-                DataAccess.InsertPatient(NewPatient);
+                NewPatient.ID = DataAccess.InsertPatient(NewPatient);
                 MessageBox.Show("Dodano nowego pacjenta!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Dane są niepoprawne!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Dane są niepoprawne!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void button_AddAuthorized_Click(object sender, EventArgs e)
+        {
+            using (AddPatient_Authorized AddAuthorizedDialog = new AddPatient_Authorized())
+            {
+                AddAuthorizedDialog.ShowDialog();
+                NewPatient.AuthorizedPeople = AddAuthorizedDialog.AuthorizedPeople;
+                PatientModelBindingSource.ResetBindings(true);
             }
         }
     }

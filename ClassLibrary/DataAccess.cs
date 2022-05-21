@@ -62,10 +62,16 @@ namespace Data
 
                 foreach (PatientModel patient in temp)
                 {
-                    var output2 = cnn.Query<AuthorizedPersonModel>("SELECT AuthorizedPeople.FirstName,AuthorizedPeople.LastName,AuthorizedPeople.HealthState,AuthorizedPeople.MedicalDocumentation " +
+                    var output2 = cnn.Query<AuthorizedPersonModel>("SELECT AuthorizedPeople.FirstName, " +
+                        "AuthorizedPeople.LastName, " +
+                        "AuthorizedPeople.HealthState, " +
+                        "AuthorizedPeople.MedicalDocumentation " +
                         "FROM Patients_AuthorizedPeople " +
-                        "INNER JOIN AuthorizedPeople ON Patients_AuthorizedPeople.AuthorizedPerson_ID = AuthorizedPeople.ID " +
-                        "WHERE AuthorizedPeople.ID = @ID ", patient);
+                        "INNER JOIN " +
+                        "Patients ON Patients_AuthorizedPeople.Patient_ID = Patients.ID " +
+                        "INNER JOIN " +
+                        "AuthorizedPeople ON Patients_AuthorizedPeople.AuthorizedPerson_ID = AuthorizedPeople.ID " +
+                        "WHERE Patients.ID = @ID;", patient);
                     patient.AuthorizedPeople = new BindingList<AuthorizedPersonModel>(output2.ToList());
                 }
 
@@ -93,11 +99,43 @@ namespace Data
             }
         }
 
+        public static BindingList<AppointmentModel> LoadAppointments()
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<AppointmentModel>("select * from Appointments", new DynamicParameters());
+
+                return new BindingList<AppointmentModel>(output.ToList());
+            }
+        }
+
+        public static BindingList<AppointmentView> LoadAppointmentView(int DoctorIndex, DateTime Date)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var parameters = new { Doc_ID = DoctorIndex, Day = Date };
+
+                var output = cnn.Query<AppointmentView>("SELECT Appointments.ID, " +
+                    "Patients.LastName || ' ' || Patients.FirstName AS Patient, " +
+                    "Doctors.LastName || ' ' || Doctors.FirstName AS Doctor, " +
+                    "Appointments.DateAndTime, " +
+                    "Rooms.Number AS Room " +
+                    "FROM Appointments " +
+                    "INNER JOIN " +
+                    "Patients ON Appointments.Patient_ID = Patients.ID " +
+                    "INNER JOIN " +
+                    "Doctors ON Appointments.Doctor_ID = Doctors.ID " +
+                    "INNER JOIN " +
+                    "Rooms ON Appointments.Room_ID = Rooms.ID " +
+                    "where Doctors.ID = @Doc_ID and DATE(Appointments.DateAndTime) = DATE(@Day);", parameters);
+
+                return new BindingList<AppointmentView>(output.ToList());
+            }
+        }
+
         #endregion Read Data
 
         #region Write Data
-
-        //
 
         public static void InsertSchedule(WorkScheduleModel NewSchedule)
         {
@@ -123,11 +161,31 @@ namespace Data
             }
         }
 
-        public static void InsertPatient(PatientModel NewPatient)
+        public static int InsertPatient(PatientModel NewPatient)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("insert into Patients (FirstName,LastName,NumberID,BornYear,Address,NumberPhone,Email) values (@FirstName,@LastName,@NumberID,@BornYear,@Address,@NumberPhone,@Email)", NewPatient);
+                var identity = cnn.ExecuteScalar<int>("insert into Patients (FirstName,LastName,NumberID,BornYear,Address,NumberPhone,Email) values (@FirstName,@LastName,@NumberID,@BornYear,@Address,@NumberPhone,@Email); SELECT last_insert_rowid();", NewPatient);
+
+                foreach (AuthorizedPersonModel AuthPerson in NewPatient.AuthorizedPeople)
+                {
+                    var parameters = new { Patient_ID = identity, AuthorizedPerson_ID = InsertAuthorizedPerson(AuthPerson) };
+                    cnn.Execute("insert into Patients_AuthorizedPeople (Patient_ID,AuthorizedPerson_ID) values (@Patient_ID,@AuthorizedPerson_ID)", parameters);
+                }
+                return identity;
+            }
+        }
+
+        public static int InsertAuthorizedPerson(AuthorizedPersonModel NewAuthorizedPerson)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var identity = cnn.ExecuteScalar<int>("INSERT INTO AuthorizedPeople " +
+                    "(FirstName, LastName, HealthState,MedicalDocumentation) " +
+                    "VALUES " +
+                    "(@FirstName, @LastName, @HealthState,@MedicalDocumentation); SELECT last_insert_rowid();", NewAuthorizedPerson);
+
+                return identity;
             }
         }
 

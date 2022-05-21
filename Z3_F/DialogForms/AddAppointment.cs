@@ -22,13 +22,17 @@ namespace Z3_F.DialogForms
         private BindingList<DoctorModel> Doctors;
         private List<DoctorModel> DoctorsToDisplay;
         private BindingList<WorkScheduleModel> Schedule;
+        private BindingList<RoomModel> Rooms;
+        private BindingList<AppointmentModel> Appointments;
         private BindingList<FreeAppointments> AppointmentsToDisplay;
 
-        public AddAppointment(BindingList<SpecializationModel> _Specializations, BindingList<DoctorModel> _Doctors, BindingList<WorkScheduleModel> _Schedule, BindingList<PatientModel> _Patients)
+        public AddAppointment(BindingList<SpecializationModel> _Specializations, BindingList<DoctorModel> _Doctors, BindingList<WorkScheduleModel> _Schedule, BindingList<PatientModel> _Patients, BindingList<RoomModel> _Rooms)
         {
             InitializeComponent();
 
             Patients = _Patients;
+
+            Rooms = _Rooms;
 
             Specializations = _Specializations;
             specializationModelBindingSource.DataSource = Specializations;
@@ -36,12 +40,16 @@ namespace Z3_F.DialogForms
             Doctors = _Doctors;
             Schedule = _Schedule;
 
+            Appointments = DataAccess.LoadAppointments();
+
             AppointmentsToDisplay = new BindingList<FreeAppointments>();
             freeAppointmentsBindingSource.DataSource = AppointmentsToDisplay;
 
             UpdateDoctors();
-            UpdateCalendar();
             UpdateAppointments();
+            UpdateCalendar();
+
+            ConstructorFinished = true;
         }
 
         private void AddAppointment_FormClosing(object sender, FormClosingEventArgs e) //disables triggers on form closing
@@ -56,14 +64,14 @@ namespace Z3_F.DialogForms
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateDoctors();
-            UpdateCalendar();
             UpdateAppointments();
+            UpdateCalendar();
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateCalendar();
             UpdateAppointments();
+            UpdateCalendar();
         }
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
@@ -83,7 +91,6 @@ namespace Z3_F.DialogForms
 
         private void UpdateCalendar()
         {
-            int Counter = 0;
             DateTime DateChecker = DateTime.MaxValue;
 
             foreach (WorkScheduleModel schedule in Schedule)
@@ -93,11 +100,10 @@ namespace Z3_F.DialogForms
                     if (schedule.Date < DateChecker)
                     {
                         DateChecker = schedule.Date;
-                        Counter++;
                     }
                 }
             }
-            if (Counter > 0)
+            if (listBox1.Items.Count > 0)
             {
                 monthCalendar1.SelectionStart = DateChecker;
             }
@@ -107,10 +113,6 @@ namespace Z3_F.DialogForms
                 {
                     monthCalendar1.SelectionStart = DateTime.Now;
                     MessageBox.Show("Brak wolnych wizyt!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    ConstructorFinished = true;
                 }
             }
         }
@@ -126,11 +128,15 @@ namespace Z3_F.DialogForms
 
                     while (PivotTime < schedule.TimeEnd)
                     {
-                        FreeAppointments appointment = new FreeAppointments
+                        if (!Appointments.ToList().Exists(x => x.DateAndTime.ToShortTimeString() == PivotTime.ToShortTimeString()))
                         {
-                            time = PivotTime
-                        };
-                        AppointmentsToDisplay.Add(appointment);
+                            FreeAppointments appointment = new FreeAppointments
+                            {
+                                time = PivotTime,
+                                Room_ID = schedule.Room_ID
+                            };
+                            AppointmentsToDisplay.Add(appointment);
+                        }
 
                         PivotTime = PivotTime.AddMinutes(10);
                     }
@@ -163,7 +169,7 @@ namespace Z3_F.DialogForms
 
             if (IsDigitsOnly(textBox_NumberID.Text) == false || textBox_NumberID.Text.Length != 11)
             {
-                MessageBox.Show("Niepoprawny numer pesel!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Niepoprawny numer pesel!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
 
@@ -183,6 +189,7 @@ namespace Z3_F.DialogForms
 
                         Patients = DataAccess.LoadPatients();
                         textBox_DisplayPatient.Text = AddPatientDialog.NewPatient.ToString();
+                        ChosenPatient = AddPatientDialog.NewPatient;
                     }
                 }
             }
@@ -190,24 +197,23 @@ namespace Z3_F.DialogForms
 
         private void button_AddAppointment_Click(object sender, EventArgs e)
         {
-            if (textBox_DisplayPatient != null && listBox1.SelectedIndices.Count > 0)
+            if (ChosenPatient != null && listBox1.SelectedIndices.Count > 0)
             {
                 AppointmentModel NewAppointment = new AppointmentModel
                 {
                     Patient_ID = ChosenPatient.ID,
                     Doctor_ID = ((DoctorModel)comboBox2.SelectedItem).ID,
                     DateAndTime = ((FreeAppointments)listBox1.SelectedItem).time,
-                    //Room_ID figure that one later
+                    Room_ID = ((FreeAppointments)listBox1.SelectedItem).Room_ID
                 };
 
                 DataAccess.InsertAppointment(NewAppointment);
-                MessageBox.Show("Dodano nową wizytę!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //show room number
+                MessageBox.Show("Dodano nową wizytę!\nNumer gabinetu - " + Rooms.ToList().Find(x => x.ID == NewAppointment.Room_ID).Number + ".", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Dane nie są kompletne!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Dane nie są kompletne!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

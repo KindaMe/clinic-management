@@ -44,25 +44,23 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button_Add = new System.Windows.Forms.Button();
+            this.button_Save = new System.Windows.Forms.Button();
             this.button_Cancel = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.button_AddAuthorized = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.PatientModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.authorizedPeopleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.healthStateDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.medicalDocumentationDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.PatientModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.authorizedPeopleBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PatientModelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.authorizedPeopleBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -86,7 +84,7 @@
             this.groupBox1.Size = new System.Drawing.Size(220, 202);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Dane Pacjenta";
+            this.groupBox1.Text = "Dane pacjenta";
             // 
             // label7
             // 
@@ -223,15 +221,15 @@
             this.textBox1.Size = new System.Drawing.Size(120, 20);
             this.textBox1.TabIndex = 0;
             // 
-            // button_Add
+            // button_Save
             // 
-            this.button_Add.Location = new System.Drawing.Point(12, 220);
-            this.button_Add.Name = "button_Add";
-            this.button_Add.Size = new System.Drawing.Size(220, 23);
-            this.button_Add.TabIndex = 1;
-            this.button_Add.Text = "Zapisz";
-            this.button_Add.UseVisualStyleBackColor = true;
-            this.button_Add.Click += new System.EventHandler(this.button_Add_Click);
+            this.button_Save.Location = new System.Drawing.Point(12, 220);
+            this.button_Save.Name = "button_Save";
+            this.button_Save.Size = new System.Drawing.Size(220, 23);
+            this.button_Save.TabIndex = 1;
+            this.button_Save.Text = "Zapisz";
+            this.button_Save.UseVisualStyleBackColor = true;
+            this.button_Save.Click += new System.EventHandler(this.button_Add_Click);
             // 
             // button_Cancel
             // 
@@ -245,9 +243,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.button5);
-            this.groupBox2.Controls.Add(this.button4);
-            this.groupBox2.Controls.Add(this.button3);
+            this.groupBox2.Controls.Add(this.button_AddAuthorized);
             this.groupBox2.Controls.Add(this.dataGridView1);
             this.groupBox2.Location = new System.Drawing.Point(238, 12);
             this.groupBox2.Name = "groupBox2";
@@ -256,32 +252,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Osoby upoważnione";
             // 
-            // button5
+            // button_AddAuthorized
             // 
-            this.button5.Location = new System.Drawing.Point(262, 16);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(106, 22);
-            this.button5.TabIndex = 6;
-            this.button5.Text = "Skasuj";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(134, 16);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(106, 22);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "Edytuj";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(6, 16);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(106, 22);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Dodaj";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button_AddAuthorized.Location = new System.Drawing.Point(6, 173);
+            this.button_AddAuthorized.Name = "button_AddAuthorized";
+            this.button_AddAuthorized.Size = new System.Drawing.Size(362, 22);
+            this.button_AddAuthorized.TabIndex = 4;
+            this.button_AddAuthorized.Text = "Edytuj";
+            this.button_AddAuthorized.UseVisualStyleBackColor = true;
+            this.button_AddAuthorized.Click += new System.EventHandler(this.button_AddAuthorized_Click);
             // 
             // dataGridView1
             // 
@@ -298,12 +277,16 @@
             this.healthStateDataGridViewCheckBoxColumn,
             this.medicalDocumentationDataGridViewCheckBoxColumn});
             this.dataGridView1.DataSource = this.authorizedPeopleBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 44);
+            this.dataGridView1.Location = new System.Drawing.Point(6, 18);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(362, 150);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // PatientModelBindingSource
+            // 
+            this.PatientModelBindingSource.DataSource = typeof(Data.PatientModel);
             // 
             // authorizedPeopleBindingSource
             // 
@@ -338,10 +321,6 @@
             this.medicalDocumentationDataGridViewCheckBoxColumn.Name = "medicalDocumentationDataGridViewCheckBoxColumn";
             this.medicalDocumentationDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
-            // PatientModelBindingSource
-            // 
-            this.PatientModelBindingSource.DataSource = typeof(Data.PatientModel);
-            // 
             // AddPatient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -349,7 +328,7 @@
             this.ClientSize = new System.Drawing.Size(624, 252);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button_Cancel);
-            this.Controls.Add(this.button_Add);
+            this.Controls.Add(this.button_Save);
             this.Controls.Add(this.groupBox1);
             this.Name = "AddPatient";
             this.Text = "Nowy Pacjent";
@@ -358,8 +337,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.authorizedPeopleBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PatientModelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.authorizedPeopleBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -381,13 +360,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Button button_Add;
+        private System.Windows.Forms.Button button_Save;
         private System.Windows.Forms.Button button_Cancel;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button_AddAuthorized;
         private System.Windows.Forms.BindingSource PatientModelBindingSource;
         private System.Windows.Forms.BindingSource authorizedPeopleBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn lastNameDataGridViewTextBoxColumn;

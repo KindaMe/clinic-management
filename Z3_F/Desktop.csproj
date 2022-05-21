@@ -63,6 +63,12 @@
     <Compile Include="DialogForms\AddPatient.Designer.cs">
       <DependentUpon>AddPatient.cs</DependentUpon>
     </Compile>
+    <Compile Include="DialogForms\AddPatient_Authorized.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogForms\AddPatient_Authorized.Designer.cs">
+      <DependentUpon>AddPatient_Authorized.cs</DependentUpon>
+    </Compile>
     <Compile Include="DialogForms\AddSchedule_EnterRoom.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,9 @@
     <EmbeddedResource Include="DialogForms\AddPatient.resx">
       <DependentUpon>AddPatient.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DialogForms\AddPatient_Authorized.resx">
+      <DependentUpon>AddPatient_Authorized.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DialogForms\AddSchedule_EnterRoom.resx">
       <DependentUpon>AddSchedule_EnterRoom.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -112,6 +121,7 @@
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Data.AppointmentModel.datasource" />
+    <None Include="Properties\DataSources\Data.AppointmentView.datasource" />
     <None Include="Properties\DataSources\Data.AuthorizedPersonModel.datasource" />
     <None Include="Properties\DataSources\Data.DoctorModel.datasource" />
     <None Include="Properties\DataSources\Data.FreeAppointments.datasource" />

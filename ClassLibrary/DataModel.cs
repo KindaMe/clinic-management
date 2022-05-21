@@ -25,11 +25,6 @@ namespace Data
         {
             return LastName + " " + FirstName;
         }
-
-        public string ToString_ScheduleHeader()
-        {
-            return "";
-        }
     }
 
     public class RoomModel
@@ -90,8 +85,18 @@ namespace Data
         public int Room_ID { get; set; }
     }
 
+    public class AppointmentView
+    {
+        public int ID { get; set; }
+        public string Patient { get; set; }
+        public string Doctor { get; set; }
+        public DateTime DateAndTime { get; set; }
+        public int Room { get; set; }
+    }
+
     public class FreeAppointments
     {
         public DateTime time { get; set; }
+        public int Room_ID { get; set; }
     }
 }

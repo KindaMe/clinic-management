@@ -24,11 +24,23 @@ namespace Z3_F
 
             ReadRooms();
 
+            ReadAppointment();
+
             //improves datagridview performance
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView_schedule, new object[] { true });
             InitSchedule();
             ReadSchedule();
         }
+
+        #region Main Form
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            listBox_Appointment_Doctors.SelectedIndexChanged -= listBox_Appointment_Doctors_SelectedIndexChanged;
+            monthCalendar_Appointment.DateChanged -= monthCalendar_Appointment_DateChanged;
+        }
+
+        #endregion Main Form
 
         #region Local Data Storage
 
@@ -37,11 +49,13 @@ namespace Z3_F
         private BindingList<PatientModel> Patients;
         private BindingList<RoomModel> Rooms;
         private BindingList<WorkScheduleModel> Schedule;
+        private BindingList<AppointmentView> AppointmentView;
 
         private void ReadDoctors()
         {
             Doctors = DataAccess.LoadDoctors();
             doctorModelBindingSource.DataSource = Doctors;
+            doctorModelBindingSource1.DataSource = Doctors;
         }
 
         private void ReadSpecializations()
@@ -93,6 +107,12 @@ namespace Z3_F
                     }
                 }
             }
+        }
+
+        private void ReadAppointment()
+        {
+            AppointmentView = DataAccess.LoadAppointmentView(((DoctorModel)listBox_Appointment_Doctors.SelectedItem).ID, monthCalendar_Appointment.SelectionStart);
+            appointmentViewBindingSource.DataSource = AppointmentView;
         }
 
         #endregion Local Data Storage
@@ -323,10 +343,22 @@ namespace Z3_F
 
         private void button13_Click(object sender, EventArgs e)
         {
-            using (AddAppointment AddAppointmentDialog = new AddAppointment(Specializations, Doctors, Schedule, Patients))
+            using (AddAppointment AddAppointmentDialog = new AddAppointment(Specializations, Doctors, Schedule, Patients, Rooms))
             {
                 AddAppointmentDialog.ShowDialog();
             }
+            ReadAppointment();
+            ReadPatients();
+        }
+
+        private void listBox_Appointment_Doctors_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ReadAppointment();
+        }
+
+        private void monthCalendar_Appointment_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            ReadAppointment();
         }
 
         #endregion Tab_Appointment
