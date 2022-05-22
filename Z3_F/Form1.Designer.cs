@@ -229,9 +229,11 @@
             this.dataGridView_Appointments.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_Appointments.EnableHeadersVisualStyles = false;
             this.dataGridView_Appointments.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView_Appointments.MultiSelect = false;
             this.dataGridView_Appointments.Name = "dataGridView_Appointments";
             this.dataGridView_Appointments.ReadOnly = true;
             this.dataGridView_Appointments.RowHeadersVisible = false;
+            this.dataGridView_Appointments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_Appointments.Size = new System.Drawing.Size(987, 622);
             this.dataGridView_Appointments.TabIndex = 0;
             // 
@@ -806,10 +808,12 @@
             this.dataGridView_DoctorsSpecializations.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_DoctorsSpecializations.EnableHeadersVisualStyles = false;
             this.dataGridView_DoctorsSpecializations.Location = new System.Drawing.Point(3, 16);
+            this.dataGridView_DoctorsSpecializations.MultiSelect = false;
             this.dataGridView_DoctorsSpecializations.Name = "dataGridView_DoctorsSpecializations";
             this.dataGridView_DoctorsSpecializations.ReadOnly = true;
             this.dataGridView_DoctorsSpecializations.RowHeadersVisible = false;
             this.dataGridView_DoctorsSpecializations.RowTemplate.Height = 44;
+            this.dataGridView_DoctorsSpecializations.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_DoctorsSpecializations.Size = new System.Drawing.Size(491, 568);
             this.dataGridView_DoctorsSpecializations.TabIndex = 1;
             // 
