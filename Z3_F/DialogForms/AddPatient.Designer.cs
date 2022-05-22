@@ -38,7 +38,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.PatientModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
@@ -50,17 +49,18 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button_AddAuthorized = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.authorizedPeopleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.healthStateDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.medicalDocumentationDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.authorizedPeopleBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.PatientModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PatientModelBindingSource)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.authorizedPeopleBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PatientModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -165,16 +165,12 @@
             0});
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 6;
+            this.numericUpDown1.TabIndex = 3;
             this.numericUpDown1.Value = new decimal(new int[] {
             2000,
             0,
             0,
             0});
-            // 
-            // PatientModelBindingSource
-            // 
-            this.PatientModelBindingSource.DataSource = typeof(Data.PatientModel);
             // 
             // textBox6
             // 
@@ -182,7 +178,7 @@
             this.textBox6.Location = new System.Drawing.Point(91, 174);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(120, 20);
-            this.textBox6.TabIndex = 5;
+            this.textBox6.TabIndex = 6;
             // 
             // textBox5
             // 
@@ -190,7 +186,7 @@
             this.textBox5.Location = new System.Drawing.Point(91, 148);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(120, 20);
-            this.textBox5.TabIndex = 4;
+            this.textBox5.TabIndex = 5;
             // 
             // textBox4
             // 
@@ -198,7 +194,7 @@
             this.textBox4.Location = new System.Drawing.Point(91, 122);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(120, 20);
-            this.textBox4.TabIndex = 3;
+            this.textBox4.TabIndex = 4;
             // 
             // textBox3
             // 
@@ -230,7 +226,7 @@
             this.button_Save.Location = new System.Drawing.Point(12, 220);
             this.button_Save.Name = "button_Save";
             this.button_Save.Size = new System.Drawing.Size(220, 23);
-            this.button_Save.TabIndex = 1;
+            this.button_Save.TabIndex = 2;
             this.button_Save.Text = "Zapisz";
             this.button_Save.UseVisualStyleBackColor = true;
             this.button_Save.Click += new System.EventHandler(this.button_Add_Click);
@@ -240,7 +236,7 @@
             this.button_Cancel.Location = new System.Drawing.Point(238, 220);
             this.button_Cancel.Name = "button_Cancel";
             this.button_Cancel.Size = new System.Drawing.Size(374, 23);
-            this.button_Cancel.TabIndex = 2;
+            this.button_Cancel.TabIndex = 3;
             this.button_Cancel.Text = "Anuluj";
             this.button_Cancel.UseVisualStyleBackColor = true;
             this.button_Cancel.Click += new System.EventHandler(this.button_Cancel_Click);
@@ -252,7 +248,7 @@
             this.groupBox2.Location = new System.Drawing.Point(238, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(374, 202);
-            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Osoby upoważnione";
             // 
@@ -260,8 +256,8 @@
             // 
             this.button_AddAuthorized.Location = new System.Drawing.Point(6, 173);
             this.button_AddAuthorized.Name = "button_AddAuthorized";
-            this.button_AddAuthorized.Size = new System.Drawing.Size(362, 22);
-            this.button_AddAuthorized.TabIndex = 4;
+            this.button_AddAuthorized.Size = new System.Drawing.Size(362, 23);
+            this.button_AddAuthorized.TabIndex = 1;
             this.button_AddAuthorized.Text = "Edytuj";
             this.button_AddAuthorized.UseVisualStyleBackColor = true;
             this.button_AddAuthorized.Click += new System.EventHandler(this.button_AddAuthorized_Click);
@@ -287,6 +283,11 @@
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(362, 150);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // authorizedPeopleBindingSource
+            // 
+            this.authorizedPeopleBindingSource.DataMember = "AuthorizedPeople";
+            this.authorizedPeopleBindingSource.DataSource = this.PatientModelBindingSource;
             // 
             // lastNameDataGridViewTextBoxColumn
             // 
@@ -316,16 +317,15 @@
             this.medicalDocumentationDataGridViewCheckBoxColumn.Name = "medicalDocumentationDataGridViewCheckBoxColumn";
             this.medicalDocumentationDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
-            // authorizedPeopleBindingSource
+            // PatientModelBindingSource
             // 
-            this.authorizedPeopleBindingSource.DataMember = "AuthorizedPeople";
-            this.authorizedPeopleBindingSource.DataSource = this.PatientModelBindingSource;
+            this.PatientModelBindingSource.DataSource = typeof(Data.PatientModel);
             // 
             // AddPatient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 252);
+            this.ClientSize = new System.Drawing.Size(624, 254);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button_Cancel);
             this.Controls.Add(this.button_Save);
@@ -337,10 +337,10 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PatientModelBindingSource)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.authorizedPeopleBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PatientModelBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

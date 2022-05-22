@@ -40,7 +40,7 @@ namespace Z3_F.DialogForms
                     Number = (int)numericUpDown1.Value
                 };
                 DataAccess.InsertRoom(NewRoom);
-                MessageBox.Show("Dodano nowy gabinet!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Gabinet został dodany pomyślnie!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             else

@@ -34,12 +34,12 @@ namespace Z3_F.DialogForms
             if (textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "" && textBox4.Text != "" && textBox5.Text != "" && textBox6.Text != "")
             {
                 NewPatient.ID = DataAccess.InsertPatient(NewPatient);
-                MessageBox.Show("Dodano nowego pacjenta!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Pacjent został dodany pomyślnie!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Dane są niepoprawne!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Dane nie są kompletne!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

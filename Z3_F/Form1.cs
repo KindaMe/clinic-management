@@ -212,7 +212,7 @@ namespace Z3_F
                 {
                     if (AreAllSelectedCellsFree() == false)
                     {
-                        MessageBox.Show("Nie wszystkie wybrane godziny są wolne!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Nie wszystkie wybrane godziny są wolne!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else
                     {

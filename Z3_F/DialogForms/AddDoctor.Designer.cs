@@ -63,7 +63,7 @@
             this.groupBox2.Location = new System.Drawing.Point(12, 10);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(351, 111);
-            this.groupBox2.TabIndex = 21;
+            this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Dane osobowe";
             // 
@@ -139,7 +139,7 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 127);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(351, 135);
-            this.groupBox1.TabIndex = 20;
+            this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Specjalizacje";
             // 
@@ -151,7 +151,7 @@
             this.listBox_Selected.Location = new System.Drawing.Point(225, 19);
             this.listBox_Selected.Name = "listBox_Selected";
             this.listBox_Selected.Size = new System.Drawing.Size(120, 108);
-            this.listBox_Selected.TabIndex = 9;
+            this.listBox_Selected.TabIndex = 2;
             // 
             // specializationModelBindingSource1
             // 
@@ -162,7 +162,7 @@
             this.button_Add.Location = new System.Drawing.Point(132, 48);
             this.button_Add.Name = "button_Add";
             this.button_Add.Size = new System.Drawing.Size(87, 23);
-            this.button_Add.TabIndex = 11;
+            this.button_Add.TabIndex = 1;
             this.button_Add.Text = ">>";
             this.button_Add.UseVisualStyleBackColor = true;
             this.button_Add.Click += new System.EventHandler(this.button_Add_Click);
@@ -175,7 +175,7 @@
             this.listBox_Available.Location = new System.Drawing.Point(6, 19);
             this.listBox_Available.Name = "listBox_Available";
             this.listBox_Available.Size = new System.Drawing.Size(120, 108);
-            this.listBox_Available.TabIndex = 8;
+            this.listBox_Available.TabIndex = 0;
             // 
             // specializationModelBindingSource
             // 
@@ -186,7 +186,7 @@
             this.button_Delete.Location = new System.Drawing.Point(132, 77);
             this.button_Delete.Name = "button_Delete";
             this.button_Delete.Size = new System.Drawing.Size(87, 23);
-            this.button_Delete.TabIndex = 10;
+            this.button_Delete.TabIndex = 3;
             this.button_Delete.Text = "<<";
             this.button_Delete.UseVisualStyleBackColor = true;
             this.button_Delete.Click += new System.EventHandler(this.button_Delete_Click);
@@ -196,7 +196,7 @@
             this.button_Cancel.Location = new System.Drawing.Point(253, 268);
             this.button_Cancel.Name = "button_Cancel";
             this.button_Cancel.Size = new System.Drawing.Size(110, 23);
-            this.button_Cancel.TabIndex = 19;
+            this.button_Cancel.TabIndex = 3;
             this.button_Cancel.Text = "Anuluj";
             this.button_Cancel.UseVisualStyleBackColor = true;
             // 
@@ -205,7 +205,7 @@
             this.button_Save.Location = new System.Drawing.Point(12, 268);
             this.button_Save.Name = "button_Save";
             this.button_Save.Size = new System.Drawing.Size(235, 23);
-            this.button_Save.TabIndex = 18;
+            this.button_Save.TabIndex = 2;
             this.button_Save.Text = "Zapisz";
             this.button_Save.UseVisualStyleBackColor = true;
             this.button_Save.Click += new System.EventHandler(this.button_Save_Click);
@@ -214,7 +214,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(375, 301);
+            this.ClientSize = new System.Drawing.Size(375, 302);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_Cancel);

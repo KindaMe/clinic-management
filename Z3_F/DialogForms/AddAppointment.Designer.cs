@@ -64,7 +64,7 @@
             this.groupBox16.Location = new System.Drawing.Point(12, 179);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(306, 52);
-            this.groupBox16.TabIndex = 8;
+            this.groupBox16.TabIndex = 2;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Dostępny lekarz";
             // 
@@ -89,7 +89,7 @@
             this.groupBox15.Location = new System.Drawing.Point(12, 121);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Size = new System.Drawing.Size(306, 52);
-            this.groupBox15.TabIndex = 7;
+            this.groupBox15.TabIndex = 1;
             this.groupBox15.TabStop = false;
             this.groupBox15.Text = "Specjalista";
             // 
@@ -119,7 +119,7 @@
             this.groupBox14.Location = new System.Drawing.Point(12, 12);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(306, 103);
-            this.groupBox14.TabIndex = 6;
+            this.groupBox14.TabIndex = 0;
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "Pacjent";
             // 
@@ -138,14 +138,14 @@
             this.textBox_DisplayPatient.Location = new System.Drawing.Point(65, 74);
             this.textBox_DisplayPatient.Name = "textBox_DisplayPatient";
             this.textBox_DisplayPatient.Size = new System.Drawing.Size(235, 20);
-            this.textBox_DisplayPatient.TabIndex = 5;
+            this.textBox_DisplayPatient.TabIndex = 2;
             // 
             // button_FindNumberID
             // 
             this.button_FindNumberID.Location = new System.Drawing.Point(65, 45);
             this.button_FindNumberID.Name = "button_FindNumberID";
             this.button_FindNumberID.Size = new System.Drawing.Size(235, 23);
-            this.button_FindNumberID.TabIndex = 4;
+            this.button_FindNumberID.TabIndex = 1;
             this.button_FindNumberID.Text = "Wyszukaj/Dodaj";
             this.button_FindNumberID.UseVisualStyleBackColor = true;
             this.button_FindNumberID.Click += new System.EventHandler(this.button_FindNumberID_Click);
@@ -165,7 +165,7 @@
             this.textBox_NumberID.MaxLength = 11;
             this.textBox_NumberID.Name = "textBox_NumberID";
             this.textBox_NumberID.Size = new System.Drawing.Size(235, 20);
-            this.textBox_NumberID.TabIndex = 2;
+            this.textBox_NumberID.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -173,7 +173,7 @@
             this.groupBox1.Location = new System.Drawing.Point(46, 237);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(238, 183);
-            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Kalendarz";
             // 
@@ -191,7 +191,7 @@
             this.groupBox2.Location = new System.Drawing.Point(324, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(210, 408);
-            this.groupBox2.TabIndex = 10;
+            this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Wolne godziny";
             // 
@@ -216,7 +216,7 @@
             this.button_AddAppointment.Name = "button_AddAppointment";
             this.button_AddAppointment.Size = new System.Drawing.Size(306, 23);
             this.button_AddAppointment.TabIndex = 11;
-            this.button_AddAppointment.Text = "Zatwierdź";
+            this.button_AddAppointment.Text = "Zapisz";
             this.button_AddAppointment.UseVisualStyleBackColor = true;
             this.button_AddAppointment.Click += new System.EventHandler(this.button_AddAppointment_Click);
             // 
@@ -234,7 +234,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(545, 455);
+            this.ClientSize = new System.Drawing.Size(545, 462);
             this.Controls.Add(this.button_Cancel);
             this.Controls.Add(this.button_AddAppointment);
             this.Controls.Add(this.groupBox2);

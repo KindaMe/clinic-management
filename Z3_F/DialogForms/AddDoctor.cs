@@ -54,12 +54,12 @@ namespace Z3_F.DialogForms
                 };
 
                 DataAccess.InsertDoctor(NewDoctor);
-                MessageBox.Show("Pomyślnie dodano pracownika!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Pracownik został dodany pomyślnie!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Dane są niekompletne!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Dane nie są kompletne!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }

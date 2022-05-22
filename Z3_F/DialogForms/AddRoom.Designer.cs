@@ -39,19 +39,19 @@
             // 
             // button_Cancel
             // 
-            this.button_Cancel.Location = new System.Drawing.Point(135, 70);
+            this.button_Cancel.Location = new System.Drawing.Point(135, 72);
             this.button_Cancel.Name = "button_Cancel";
             this.button_Cancel.Size = new System.Drawing.Size(111, 23);
-            this.button_Cancel.TabIndex = 7;
+            this.button_Cancel.TabIndex = 2;
             this.button_Cancel.Text = "Anuluj";
             this.button_Cancel.UseVisualStyleBackColor = true;
             // 
             // button_Add
             // 
-            this.button_Add.Location = new System.Drawing.Point(12, 70);
+            this.button_Add.Location = new System.Drawing.Point(12, 72);
             this.button_Add.Name = "button_Add";
             this.button_Add.Size = new System.Drawing.Size(111, 23);
-            this.button_Add.TabIndex = 6;
+            this.button_Add.TabIndex = 1;
             this.button_Add.Text = "Dodaj";
             this.button_Add.UseVisualStyleBackColor = true;
             this.button_Add.Click += new System.EventHandler(this.button_Add_Click);
@@ -63,7 +63,7 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(234, 52);
-            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dane";
             // 

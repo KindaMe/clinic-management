@@ -221,7 +221,7 @@ namespace Z3_F.DialogForms
                 };
 
                 DataAccess.InsertAppointment(NewAppointment);
-                MessageBox.Show("Dodano nową wizytę!\nNumer gabinetu - " + Rooms.ToList().Find(x => x.ID == NewAppointment.Room_ID).Number + ".", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Wizyta została dodana pomyślnie!\nNumer gabinetu - " + Rooms.ToList().Find(x => x.ID == NewAppointment.Room_ID).Number + ".", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             else
