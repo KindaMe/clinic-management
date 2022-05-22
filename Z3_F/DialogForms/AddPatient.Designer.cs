@@ -38,6 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.PatientModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
@@ -49,17 +50,16 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button_AddAuthorized = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.PatientModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.authorizedPeopleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lastNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.firstNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.healthStateDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.medicalDocumentationDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.authorizedPeopleBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PatientModelBindingSource)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PatientModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.authorizedPeopleBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -171,6 +171,10 @@
             0,
             0,
             0});
+            // 
+            // PatientModelBindingSource
+            // 
+            this.PatientModelBindingSource.DataSource = typeof(Data.PatientModel);
             // 
             // textBox6
             // 
@@ -284,15 +288,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(362, 150);
             this.dataGridView1.TabIndex = 0;
             // 
-            // PatientModelBindingSource
-            // 
-            this.PatientModelBindingSource.DataSource = typeof(Data.PatientModel);
-            // 
-            // authorizedPeopleBindingSource
-            // 
-            this.authorizedPeopleBindingSource.DataMember = "AuthorizedPeople";
-            this.authorizedPeopleBindingSource.DataSource = this.PatientModelBindingSource;
-            // 
             // lastNameDataGridViewTextBoxColumn
             // 
             this.lastNameDataGridViewTextBoxColumn.DataPropertyName = "LastName";
@@ -321,6 +316,11 @@
             this.medicalDocumentationDataGridViewCheckBoxColumn.Name = "medicalDocumentationDataGridViewCheckBoxColumn";
             this.medicalDocumentationDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
+            // authorizedPeopleBindingSource
+            // 
+            this.authorizedPeopleBindingSource.DataMember = "AuthorizedPeople";
+            this.authorizedPeopleBindingSource.DataSource = this.PatientModelBindingSource;
+            // 
             // AddPatient
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -330,14 +330,16 @@
             this.Controls.Add(this.button_Cancel);
             this.Controls.Add(this.button_Save);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddPatient";
             this.Text = "Nowy Pacjent";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PatientModelBindingSource)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PatientModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.authorizedPeopleBindingSource)).EndInit();
             this.ResumeLayout(false);
 

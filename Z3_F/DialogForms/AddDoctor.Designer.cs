@@ -38,18 +38,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listBox_Selected = new System.Windows.Forms.ListBox();
+            this.specializationModelBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.button_Add = new System.Windows.Forms.Button();
             this.listBox_Available = new System.Windows.Forms.ListBox();
             this.specializationModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button_Delete = new System.Windows.Forms.Button();
             this.button_Cancel = new System.Windows.Forms.Button();
             this.button_Save = new System.Windows.Forms.Button();
-            this.specializationModelBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Year)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.specializationModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.specializationModelBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.specializationModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -153,6 +153,10 @@
             this.listBox_Selected.Size = new System.Drawing.Size(120, 108);
             this.listBox_Selected.TabIndex = 9;
             // 
+            // specializationModelBindingSource1
+            // 
+            this.specializationModelBindingSource1.DataSource = typeof(Data.SpecializationModel);
+            // 
             // button_Add
             // 
             this.button_Add.Location = new System.Drawing.Point(132, 48);
@@ -206,10 +210,6 @@
             this.button_Save.UseVisualStyleBackColor = true;
             this.button_Save.Click += new System.EventHandler(this.button_Save_Click);
             // 
-            // specializationModelBindingSource1
-            // 
-            this.specializationModelBindingSource1.DataSource = typeof(Data.SpecializationModel);
-            // 
             // AddDoctor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,14 +219,16 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button_Cancel);
             this.Controls.Add(this.button_Save);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddDoctor";
             this.Text = "Nowy Lekarz";
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Year)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.specializationModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.specializationModelBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.specializationModelBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

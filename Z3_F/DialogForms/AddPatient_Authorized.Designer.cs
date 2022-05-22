@@ -249,6 +249,8 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button_Add);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddPatient_Authorized";
             this.Text = "Edytuj Upoważnione Osoby";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
