@@ -347,7 +347,7 @@
             this.groupBox8.Controls.Add(this.monthCalendar_schedule);
             this.groupBox8.Location = new System.Drawing.Point(8, 6);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(251, 641);
+            this.groupBox8.Size = new System.Drawing.Size(241, 641);
             this.groupBox8.TabIndex = 5;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Data";
@@ -355,7 +355,7 @@
             // monthCalendar_schedule
             // 
             this.monthCalendar_schedule.CalendarDimensions = new System.Drawing.Size(1, 4);
-            this.monthCalendar_schedule.Location = new System.Drawing.Point(12, 16);
+            this.monthCalendar_schedule.Location = new System.Drawing.Point(7, 16);
             this.monthCalendar_schedule.MaxSelectionCount = 1;
             this.monthCalendar_schedule.Name = "monthCalendar_schedule";
             this.monthCalendar_schedule.TabIndex = 4;
@@ -364,9 +364,9 @@
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.dataGridView_schedule);
-            this.groupBox10.Location = new System.Drawing.Point(265, 6);
+            this.groupBox10.Location = new System.Drawing.Point(255, 6);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(983, 641);
+            this.groupBox10.Size = new System.Drawing.Size(993, 641);
             this.groupBox10.TabIndex = 3;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Grafik";
@@ -413,7 +413,7 @@
             this.dataGridView_schedule.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView_schedule.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridView_schedule.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridView_schedule.Size = new System.Drawing.Size(977, 622);
+            this.dataGridView_schedule.Size = new System.Drawing.Size(987, 622);
             this.dataGridView_schedule.TabIndex = 2;
             this.dataGridView_schedule.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_schedule_CellMouseDown);
             this.dataGridView_schedule.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.dataGridView_schedule_CellStateChanged);
