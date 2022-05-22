@@ -28,6 +28,14 @@ namespace Z3_F
 
             //improves datagridview performance
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView_schedule, new object[] { true });
+            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView_Appointments, new object[] { true });
+            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView_Doctors, new object[] { true });
+            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView_DoctorsSpecializations, new object[] { true });
+            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView1, new object[] { true });
+            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView2, new object[] { true });
+            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView3, new object[] { true });
+            typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView_Specializations, new object[] { true });
+
             InitSchedule();
             ReadSchedule();
         }
@@ -119,7 +127,6 @@ namespace Z3_F
 
         #region Tab_Schedule
 
-        private bool ChangeDisabled = false;
         private int CurrentColumn = -1;
 
         private void InitSchedule()
@@ -158,12 +165,9 @@ namespace Z3_F
 
         private void monthCalendar_schedule_DateChanged(object sender, DateRangeEventArgs e)
         {
-            ChangeDisabled = true;
-
             ReadSchedule();
 
             dataGridView_schedule.ClearSelection();
-            ChangeDisabled = false;
         }
 
         private void dataGridView_schedule_CellStateChanged(object sender, DataGridViewCellStateChangedEventArgs e)
