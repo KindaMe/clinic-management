@@ -669,6 +669,7 @@
             this.button_Patient_Delete.TabIndex = 9;
             this.button_Patient_Delete.Text = "Usuń";
             this.button_Patient_Delete.UseVisualStyleBackColor = true;
+            this.button_Patient_Delete.Click += new System.EventHandler(this.button_Patient_Delete_Click);
             // 
             // button_Patient_Add
             // 
@@ -741,6 +742,7 @@
             this.button_Worker_Delete.TabIndex = 9;
             this.button_Worker_Delete.Text = "Usuń";
             this.button_Worker_Delete.UseVisualStyleBackColor = true;
+            this.button_Worker_Delete.Click += new System.EventHandler(this.button_Worker_Delete_Click);
             // 
             // button_Worker_Add
             // 
@@ -944,6 +946,7 @@
             this.button_Specialization_Delete.TabIndex = 9;
             this.button_Specialization_Delete.Text = "Usuń";
             this.button_Specialization_Delete.UseVisualStyleBackColor = true;
+            this.button_Specialization_Delete.Click += new System.EventHandler(this.button_Specialization_Delete_Click);
             // 
             // button_Specialization_Add
             // 
@@ -1070,6 +1073,7 @@
             this.button_Room_Delete.TabIndex = 9;
             this.button_Room_Delete.Text = "Usuń";
             this.button_Room_Delete.UseVisualStyleBackColor = true;
+            this.button_Room_Delete.Click += new System.EventHandler(this.button_Room_Delete_Click);
             // 
             // button_Room_Add
             // 

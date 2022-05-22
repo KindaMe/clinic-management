@@ -26,6 +26,9 @@ namespace Z3_F
 
             ReadAppointment();
 
+            InitSchedule();
+            ReadSchedule();
+
             //improves datagridview performance
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView_schedule, new object[] { true });
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView_Appointments, new object[] { true });
@@ -35,9 +38,6 @@ namespace Z3_F
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView2, new object[] { true });
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView3, new object[] { true });
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView_Specializations, new object[] { true });
-
-            InitSchedule();
-            ReadSchedule();
         }
 
         #region Main Form
@@ -84,7 +84,7 @@ namespace Z3_F
             roomModelBindingSource.DataSource = Rooms;
         }
 
-        private void ReadSchedule()
+        private void ReadSchedule()//needs a lil remake
         {
             Schedule = DataAccess.LoadSchedule();
 
@@ -378,6 +378,17 @@ namespace Z3_F
             ReadPatients();
         }
 
+        private void button_Patient_Delete_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Usunięcie pacjenta spowoduje skasowanie wszystkich powiązanych osób upoważnionych oraz umówionych wizyt.\nKontynuować?", "Informacja", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.OK)
+            {
+                DataAccess.DeletePatient((PatientModel)dataGridView1.SelectedRows[0].DataBoundItem);
+                ReadPatients();
+                ReadAppointment();
+            }
+        }
+
         #endregion Tab_Patient
 
         #region Tab_Worker
@@ -390,6 +401,21 @@ namespace Z3_F
             }
             ReadDoctors();
             ReadSchedule();
+        }
+
+        private void button_Worker_Delete_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Usunięcie pracownika spowoduje skasowanie wszystkich powiązanych dyżurów oraz umówionych wizyt.\nKontynuować?" +
+                "\n(napraw ten syfiaste dodawanie kolumn w grafiku żeby kasowanie pracowników działało jak należy)",
+                "Informacja", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (result == DialogResult.OK)
+            {
+                DataAccess.DeleteDoctor((DoctorModel)dataGridView_Doctors.SelectedRows[0].DataBoundItem);
+                ReadDoctors();
+                ReadSchedule();
+                ReadAppointment();
+            }
         }
 
         #endregion Tab_Worker
@@ -405,6 +431,18 @@ namespace Z3_F
             ReadRooms();
         }
 
+        private void button_Room_Delete_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Usunięcie gabinetu spowoduje skasowanie wszystkich powiązanych dyżurów oraz umówionych wizyt.\nKontynuować?", "Informacja", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.OK)
+            {
+                DataAccess.DeleteRoom((RoomModel)dataGridView3.SelectedRows[0].DataBoundItem);
+                ReadRooms();
+                ReadSchedule();
+                ReadAppointment();
+            }
+        }
+
         #endregion Tab_Room
 
         #region Tab_Specialization
@@ -416,6 +454,18 @@ namespace Z3_F
                 AddSpecializationDialog.ShowDialog();
             }
             ReadSpecializations();
+        }
+
+        private void button_Specialization_Delete_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Usunięcie specjalizacji spowoduje skasowanie wszystkich powiązanych wizyt i aktualizacje pracowników.\nKontynuować?", "Informacja", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.OK)
+            {
+                DataAccess.DeleteSpecialization((SpecializationModel)dataGridView_Specializations.SelectedRows[0].DataBoundItem);
+                ReadSpecializations();
+                ReadDoctors();
+                ReadAppointment();
+            }
         }
 
         #endregion Tab_Specialization

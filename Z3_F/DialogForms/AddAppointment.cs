@@ -193,8 +193,8 @@ namespace Z3_F.DialogForms
             }
             else
             {
-                DialogResult result = MessageBox.Show("Pacjent nie znajduje się w bazie, chcesz dodać pacjenta?", "Informacja", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (result == DialogResult.Yes)
+                DialogResult result = MessageBox.Show("Pacjent nie znajduje się w bazie.\nChcesz dodać pacjenta?", "Informacja", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.OK)
                 {
                     using (AddPatient AddPatientDialog = new AddPatient(textBox_NumberID.Text))
                     {

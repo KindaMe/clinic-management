@@ -224,5 +224,64 @@ namespace Data
         }
 
         #endregion Write Data
+
+        #region Delete Data
+
+        public static void DeleteRoom(RoomModel RoomToDelete)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("delete from Appointments where Room_ID = @ID", RoomToDelete);
+                cnn.Execute("delete from Schedule where Room_ID = @ID", RoomToDelete);
+
+                cnn.Execute("delete from Rooms where ID = @ID", RoomToDelete);
+            }
+        }
+
+        public static void DeleteSpecialization(SpecializationModel SpecializationToDelete)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("DELETE FROM Appointments " +
+                    "WHERE Appointments.Doctor_ID IN(" +
+                    "SELECT Doctors.ID " +
+                    "FROM Doctors " +
+                    "WHERE Doctors.ID IN(" +
+                    "SELECT Doctors_Specializations.Doctor_ID " +
+                    "FROM Doctors_Specializations " +
+                    "WHERE Doctors_Specializations.Specialization_ID IN(" +
+                    "SELECT Specializations.ID " +
+                    "FROM Specializations " +
+                    "WHERE Specializations.ID = @ID)));", SpecializationToDelete);
+                cnn.Execute("delete from Doctors_Specializations where Specialization_ID = @ID", SpecializationToDelete);
+
+                cnn.Execute("delete from Specializations where ID = @ID", SpecializationToDelete);
+            }
+        }
+
+        public static void DeleteDoctor(DoctorModel DoctorToDelete)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("delete from Doctors_Specializations where Doctor_ID = @ID", DoctorToDelete);
+                cnn.Execute("delete from Appointments where Doctor_ID = @ID", DoctorToDelete);
+                cnn.Execute("delete from Schedule where Doctor_ID = @ID", DoctorToDelete);
+
+                cnn.Execute("delete from Doctors where ID = @ID", DoctorToDelete);
+            }
+        }
+
+        public static void DeletePatient(PatientModel PatientToDelete)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("delete from Patients_AuthorizedPeople where Patient_ID = @ID", PatientToDelete);
+                cnn.Execute("delete from Appointments where Patient_ID = @ID", PatientToDelete);
+
+                cnn.Execute("delete from Patients where ID = @ID", PatientToDelete);
+            }
+        }
+
+        #endregion Delete Data
     }
 }
