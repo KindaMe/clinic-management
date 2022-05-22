@@ -26,7 +26,6 @@ namespace Z3_F
 
             ReadAppointment();
 
-            InitSchedule();
             ReadSchedule();
 
             //improves datagridview performance
@@ -84,18 +83,38 @@ namespace Z3_F
             roomModelBindingSource.DataSource = Rooms;
         }
 
-        private void ReadSchedule()//needs a lil remake
+        private void ReadSchedule()
         {
+            int HorizontalScrollOffset = dataGridView_schedule.HorizontalScrollingOffset;
+            dataGridView_schedule.Columns.Clear();
+
             Schedule = DataAccess.LoadSchedule();
 
-            foreach (DataGridViewRow row in dataGridView_schedule.Rows)
-                for (int i = 0; i < row.Cells.Count; i++)
-                {
-                    row.Cells[i].Style.BackColor = Color.White;
-                    row.Cells[i].Value = null;
-                }
+            List<string> Hours = new List<string>
+            {
+               "00:00 - 01:00", "01:00 - 02:00", "02:00 - 03:00", "03:00 - 04:00",
+               "04:00 - 05:00", "05:00 - 06:00", "06:00 - 07:00", "07:00 - 08:00",
+               "08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00",
+               "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00",
+               "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00", "19:00 - 20:00",
+               "20:00 - 21:00", "21:00 - 22:00", "22:00 - 23:00", "23:00 - 24:00",
+            };
 
-            AddMissingColumns();
+            foreach (DoctorModel doc in Doctors)
+            {
+                if (dataGridView_schedule.Columns.Contains(doc.ID.ToString()))
+                    continue;
+
+                int tempColIndex = dataGridView_schedule.Columns.Add(doc.ID.ToString(), doc.ToString() + " (ID:" + doc.ID + ")");
+                dataGridView_schedule.Columns[tempColIndex].SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
+            dataGridView_schedule.Rows.Add(Hours.Count);
+
+            for (int i = 0; i < dataGridView_schedule.Rows.Count; i++)
+            {
+                dataGridView_schedule.Rows[i].HeaderCell.Value = Hours[i];
+            }
 
             foreach (WorkScheduleModel schedule in Schedule)
             {
@@ -105,7 +124,15 @@ namespace Z3_F
                     int colIndex = dataGridView_schedule.Columns[tempDoc.ID.ToString()].Index;
 
                     int StartingHour = schedule.TimeStart.Hour;
-                    int EndingHour = schedule.TimeEnd.Hour;
+                    int EndingHour;
+                    if (schedule.TimeEnd.Minute == 59)
+                    {
+                        EndingHour = 24;
+                    }
+                    else
+                    {
+                        EndingHour = schedule.TimeEnd.Hour;
+                    }
 
                     for (int i = StartingHour; i < EndingHour; i++)
                     {
@@ -115,6 +142,7 @@ namespace Z3_F
                     }
                 }
             }
+            dataGridView_schedule.HorizontalScrollingOffset = HorizontalScrollOffset;
         }
 
         private void ReadAppointment()
@@ -128,40 +156,6 @@ namespace Z3_F
         #region Tab_Schedule
 
         private int CurrentColumn = -1;
-
-        private void InitSchedule()
-        {
-            List<string> Hours = new List<string>
-            {
-               "00:00 - 01:00", "01:00 - 02:00", "02:00 - 03:00", "03:00 - 04:00",
-               "04:00 - 05:00", "05:00 - 06:00", "06:00 - 07:00", "07:00 - 08:00",
-               "08:00 - 09:00", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00",
-               "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00",
-               "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00", "19:00 - 20:00",
-               "20:00 - 21:00", "21:00 - 22:00", "22:00 - 23:00", "23:00 - 24:00",
-            };
-
-            AddMissingColumns();
-
-            dataGridView_schedule.Rows.Add(Hours.Count);
-
-            for (int i = 0; i < dataGridView_schedule.Rows.Count; i++)
-            {
-                dataGridView_schedule.Rows[i].HeaderCell.Value = Hours[i];
-            }
-        }
-
-        private void AddMissingColumns()
-        {
-            foreach (DoctorModel doc in Doctors)
-            {
-                if (dataGridView_schedule.Columns.Contains(doc.ID.ToString()))
-                    continue;
-
-                int tempColIndex = dataGridView_schedule.Columns.Add(doc.ID.ToString(), doc.ToString() + " (ID:" + doc.ID + ")");
-                dataGridView_schedule.Columns[tempColIndex].SortMode = DataGridViewColumnSortMode.NotSortable;
-            }
-        }
 
         private void monthCalendar_schedule_DateChanged(object sender, DateRangeEventArgs e)
         {
@@ -263,13 +257,27 @@ namespace Z3_F
                                     0);
 
                             //DateTime TimeEnd
-                            DateTime newTimeEnd = new DateTime(
-                            monthCalendar_schedule.SelectionStart.Date.Year,
-                            monthCalendar_schedule.SelectionStart.Date.Month,
-                            monthCalendar_schedule.SelectionStart.Date.Day,
-                            EndingHour + 1,
-                            0,
-                            0);
+                            DateTime newTimeEnd;
+                            if (EndingHour + 1 == 24)
+                            {
+                                newTimeEnd = new DateTime(
+                                monthCalendar_schedule.SelectionStart.Date.Year,
+                                monthCalendar_schedule.SelectionStart.Date.Month,
+                                monthCalendar_schedule.SelectionStart.Date.Day,
+                                EndingHour,
+                                59,
+                                59);
+                            }
+                            else
+                            {
+                                newTimeEnd = new DateTime(
+                                monthCalendar_schedule.SelectionStart.Date.Year,
+                                monthCalendar_schedule.SelectionStart.Date.Month,
+                                monthCalendar_schedule.SelectionStart.Date.Day,
+                                EndingHour + 1,
+                                0,
+                                0);
+                            }
 
                             WorkScheduleModel NewSchedule = new WorkScheduleModel
                             {
