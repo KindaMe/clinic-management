@@ -197,6 +197,35 @@ namespace Data
             }
         }
 
+        public static void InsertDoctor(DoctorModel NewDoctor)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var identity = cnn.ExecuteScalar<int>("insert into Doctors (FirstName,LastName,BeganWorkYear) values (@FirstName,@LastName,@BeganWorkYear); select last_insert_rowid();", NewDoctor);
+                foreach (SpecializationModel Spec in NewDoctor.Specializations)
+                {
+                    var parameters = new { Doctor_ID = identity, Specialization_ID = Spec.ID };
+                    cnn.Execute("insert into Doctors_Specializations (Doctor_ID,Specialization_ID) values (@Doctor_ID,@Specialization_ID)", parameters);
+                }
+            }
+        }
+
+        public static void InsertRoom(RoomModel NewRoom)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("insert into Rooms (Number) values (@Number)", NewRoom);
+            }
+        }
+
+        public static void InsertSpecialization(SpecializationModel NewSpecialization)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("insert into Specializations (Name) values (@Name)", NewSpecialization);
+            }
+        }
+
         #endregion Write Data
     }
 }

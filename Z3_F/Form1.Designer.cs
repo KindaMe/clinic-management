@@ -81,15 +81,15 @@
             this.emailDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.button7 = new System.Windows.Forms.Button();
+            this.button_Patient_Delete = new System.Windows.Forms.Button();
             this.button_Patient_Add = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
+            this.button_Patient_Edit = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.button_Worker_Delete = new System.Windows.Forms.Button();
+            this.button_Worker_Add = new System.Windows.Forms.Button();
+            this.button_Worker_Edit = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView_DoctorsSpecializations = new System.Windows.Forms.DataGridView();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -102,9 +102,9 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.button_Specialization_Delete = new System.Windows.Forms.Button();
+            this.button_Specialization_Add = new System.Windows.Forms.Button();
+            this.button_Specialization_Edit = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dataGridView_Specializations = new System.Windows.Forms.DataGridView();
             this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -112,9 +112,9 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
+            this.button_Room_Delete = new System.Windows.Forms.Button();
+            this.button_Room_Add = new System.Windows.Forms.Button();
+            this.button_Room_Edit = new System.Windows.Forms.Button();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.numberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -318,10 +318,12 @@
             // listBox_Appointment_Doctors
             // 
             this.listBox_Appointment_Doctors.DataSource = this.doctorModelBindingSource1;
+            this.listBox_Appointment_Doctors.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBox_Appointment_Doctors.FormattingEnabled = true;
+            this.listBox_Appointment_Doctors.ItemHeight = 20;
             this.listBox_Appointment_Doctors.Location = new System.Drawing.Point(6, 19);
             this.listBox_Appointment_Doctors.Name = "listBox_Appointment_Doctors";
-            this.listBox_Appointment_Doctors.Size = new System.Drawing.Size(229, 342);
+            this.listBox_Appointment_Doctors.Size = new System.Drawing.Size(229, 324);
             this.listBox_Appointment_Doctors.TabIndex = 1;
             this.listBox_Appointment_Doctors.SelectedIndexChanged += new System.EventHandler(this.listBox_Appointment_Doctors_SelectedIndexChanged);
             // 
@@ -644,9 +646,9 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel3.Controls.Add(this.button7, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.button_Patient_Delete, 2, 0);
             this.tableLayoutPanel3.Controls.Add(this.button_Patient_Add, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.button9, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.button_Patient_Edit, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -656,15 +658,15 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1234, 29);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
-            // button7
+            // button_Patient_Delete
             // 
-            this.button7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button7.Location = new System.Drawing.Point(825, 3);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(406, 23);
-            this.button7.TabIndex = 9;
-            this.button7.Text = "Usuń";
-            this.button7.UseVisualStyleBackColor = true;
+            this.button_Patient_Delete.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_Patient_Delete.Location = new System.Drawing.Point(825, 3);
+            this.button_Patient_Delete.Name = "button_Patient_Delete";
+            this.button_Patient_Delete.Size = new System.Drawing.Size(406, 23);
+            this.button_Patient_Delete.TabIndex = 9;
+            this.button_Patient_Delete.Text = "Usuń";
+            this.button_Patient_Delete.UseVisualStyleBackColor = true;
             // 
             // button_Patient_Add
             // 
@@ -677,15 +679,15 @@
             this.button_Patient_Add.UseVisualStyleBackColor = true;
             this.button_Patient_Add.Click += new System.EventHandler(this.button_Patient_Add_Click);
             // 
-            // button9
+            // button_Patient_Edit
             // 
-            this.button9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button9.Location = new System.Drawing.Point(414, 3);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(405, 23);
-            this.button9.TabIndex = 7;
-            this.button9.Text = "Edytuj";
-            this.button9.UseVisualStyleBackColor = true;
+            this.button_Patient_Edit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_Patient_Edit.Location = new System.Drawing.Point(414, 3);
+            this.button_Patient_Edit.Name = "button_Patient_Edit";
+            this.button_Patient_Edit.Size = new System.Drawing.Size(405, 23);
+            this.button_Patient_Edit.TabIndex = 7;
+            this.button_Patient_Edit.Text = "Edytuj";
+            this.button_Patient_Edit.UseVisualStyleBackColor = true;
             // 
             // tabPage1
             // 
@@ -716,9 +718,9 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.Controls.Add(this.button4, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.button5, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.button6, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.button_Worker_Delete, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.button_Worker_Add, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.button_Worker_Edit, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -728,35 +730,36 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1234, 29);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
-            // button4
+            // button_Worker_Delete
             // 
-            this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button4.Location = new System.Drawing.Point(825, 3);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(406, 23);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "Usuń";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button_Worker_Delete.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_Worker_Delete.Location = new System.Drawing.Point(825, 3);
+            this.button_Worker_Delete.Name = "button_Worker_Delete";
+            this.button_Worker_Delete.Size = new System.Drawing.Size(406, 23);
+            this.button_Worker_Delete.TabIndex = 9;
+            this.button_Worker_Delete.Text = "Usuń";
+            this.button_Worker_Delete.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // button_Worker_Add
             // 
-            this.button5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button5.Location = new System.Drawing.Point(3, 3);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(405, 23);
-            this.button5.TabIndex = 8;
-            this.button5.Text = "Dodaj";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button_Worker_Add.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_Worker_Add.Location = new System.Drawing.Point(3, 3);
+            this.button_Worker_Add.Name = "button_Worker_Add";
+            this.button_Worker_Add.Size = new System.Drawing.Size(405, 23);
+            this.button_Worker_Add.TabIndex = 8;
+            this.button_Worker_Add.Text = "Dodaj";
+            this.button_Worker_Add.UseVisualStyleBackColor = true;
+            this.button_Worker_Add.Click += new System.EventHandler(this.button_Worker_Add_Click);
             // 
-            // button6
+            // button_Worker_Edit
             // 
-            this.button6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button6.Location = new System.Drawing.Point(414, 3);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(405, 23);
-            this.button6.TabIndex = 7;
-            this.button6.Text = "Edytuj";
-            this.button6.UseVisualStyleBackColor = true;
+            this.button_Worker_Edit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_Worker_Edit.Location = new System.Drawing.Point(414, 3);
+            this.button_Worker_Edit.Name = "button_Worker_Edit";
+            this.button_Worker_Edit.Size = new System.Drawing.Size(405, 23);
+            this.button_Worker_Edit.TabIndex = 7;
+            this.button_Worker_Edit.Text = "Edytuj";
+            this.button_Worker_Edit.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -916,9 +919,9 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Controls.Add(this.button1, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button3, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button_Specialization_Delete, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button_Specialization_Add, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button_Specialization_Edit, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -928,35 +931,36 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1234, 29);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // button1
+            // button_Specialization_Delete
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(825, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(406, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Usuń";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button_Specialization_Delete.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_Specialization_Delete.Location = new System.Drawing.Point(825, 3);
+            this.button_Specialization_Delete.Name = "button_Specialization_Delete";
+            this.button_Specialization_Delete.Size = new System.Drawing.Size(406, 23);
+            this.button_Specialization_Delete.TabIndex = 9;
+            this.button_Specialization_Delete.Text = "Usuń";
+            this.button_Specialization_Delete.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // button_Specialization_Add
             // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Location = new System.Drawing.Point(3, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(405, 23);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Dodaj";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button_Specialization_Add.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_Specialization_Add.Location = new System.Drawing.Point(3, 3);
+            this.button_Specialization_Add.Name = "button_Specialization_Add";
+            this.button_Specialization_Add.Size = new System.Drawing.Size(405, 23);
+            this.button_Specialization_Add.TabIndex = 8;
+            this.button_Specialization_Add.Text = "Dodaj";
+            this.button_Specialization_Add.UseVisualStyleBackColor = true;
+            this.button_Specialization_Add.Click += new System.EventHandler(this.button_Specialization_Add_Click);
             // 
-            // button3
+            // button_Specialization_Edit
             // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.Location = new System.Drawing.Point(414, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(405, 23);
-            this.button3.TabIndex = 7;
-            this.button3.Text = "Edytuj";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button_Specialization_Edit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_Specialization_Edit.Location = new System.Drawing.Point(414, 3);
+            this.button_Specialization_Edit.Name = "button_Specialization_Edit";
+            this.button_Specialization_Edit.Size = new System.Drawing.Size(405, 23);
+            this.button_Specialization_Edit.TabIndex = 7;
+            this.button_Specialization_Edit.Text = "Edytuj";
+            this.button_Specialization_Edit.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -1041,9 +1045,9 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.Controls.Add(this.button10, 2, 0);
-            this.tableLayoutPanel4.Controls.Add(this.button11, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.button12, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.button_Room_Delete, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.button_Room_Add, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.button_Room_Edit, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -1053,35 +1057,36 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1234, 29);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
-            // button10
+            // button_Room_Delete
             // 
-            this.button10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button10.Location = new System.Drawing.Point(825, 3);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(406, 23);
-            this.button10.TabIndex = 9;
-            this.button10.Text = "Usuń";
-            this.button10.UseVisualStyleBackColor = true;
+            this.button_Room_Delete.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_Room_Delete.Location = new System.Drawing.Point(825, 3);
+            this.button_Room_Delete.Name = "button_Room_Delete";
+            this.button_Room_Delete.Size = new System.Drawing.Size(406, 23);
+            this.button_Room_Delete.TabIndex = 9;
+            this.button_Room_Delete.Text = "Usuń";
+            this.button_Room_Delete.UseVisualStyleBackColor = true;
             // 
-            // button11
+            // button_Room_Add
             // 
-            this.button11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button11.Location = new System.Drawing.Point(3, 3);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(405, 23);
-            this.button11.TabIndex = 8;
-            this.button11.Text = "Dodaj";
-            this.button11.UseVisualStyleBackColor = true;
+            this.button_Room_Add.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_Room_Add.Location = new System.Drawing.Point(3, 3);
+            this.button_Room_Add.Name = "button_Room_Add";
+            this.button_Room_Add.Size = new System.Drawing.Size(405, 23);
+            this.button_Room_Add.TabIndex = 8;
+            this.button_Room_Add.Text = "Dodaj";
+            this.button_Room_Add.UseVisualStyleBackColor = true;
+            this.button_Room_Add.Click += new System.EventHandler(this.button_Room_Add_Click);
             // 
-            // button12
+            // button_Room_Edit
             // 
-            this.button12.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button12.Location = new System.Drawing.Point(414, 3);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(405, 23);
-            this.button12.TabIndex = 7;
-            this.button12.Text = "Edytuj";
-            this.button12.UseVisualStyleBackColor = true;
+            this.button_Room_Edit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_Room_Edit.Location = new System.Drawing.Point(414, 3);
+            this.button_Room_Edit.Name = "button_Room_Edit";
+            this.button_Room_Edit.Size = new System.Drawing.Size(405, 23);
+            this.button_Room_Edit.TabIndex = 7;
+            this.button_Room_Edit.Text = "Edytuj";
+            this.button_Room_Edit.UseVisualStyleBackColor = true;
             // 
             // groupBox12
             // 
@@ -1208,24 +1213,24 @@
         private System.Windows.Forms.DataGridView dataGridView_Specializations;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn1;
         private System.Windows.Forms.BindingSource specializationModelBindingSource;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button_Specialization_Delete;
+        private System.Windows.Forms.Button button_Specialization_Add;
+        private System.Windows.Forms.Button button_Specialization_Edit;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button_Worker_Delete;
+        private System.Windows.Forms.Button button_Worker_Add;
+        private System.Windows.Forms.Button button_Worker_Edit;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button_Patient_Delete;
         private System.Windows.Forms.Button button_Patient_Add;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button_Patient_Edit;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.TabPage tabPage4;
@@ -1252,9 +1257,9 @@
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button11;
-        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button_Room_Delete;
+        private System.Windows.Forms.Button button_Room_Add;
+        private System.Windows.Forms.Button button_Room_Edit;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.BindingSource roomModelBindingSource;

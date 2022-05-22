@@ -375,5 +375,45 @@ namespace Z3_F
         }
 
         #endregion Tab_Patient
+
+        #region Tab_Worker
+
+        private void button_Worker_Add_Click(object sender, EventArgs e)
+        {
+            using (AddDoctor AddDoctorDialog = new AddDoctor())
+            {
+                AddDoctorDialog.ShowDialog();
+            }
+            ReadDoctors();
+            ReadSchedule();
+        }
+
+        #endregion Tab_Worker
+
+        #region Tab_Room
+
+        private void button_Room_Add_Click(object sender, EventArgs e)
+        {
+            using (AddRoom AddRoomDialog = new AddRoom())
+            {
+                AddRoomDialog.ShowDialog();
+            }
+            ReadRooms();
+        }
+
+        #endregion Tab_Room
+
+        #region Tab_Specialization
+
+        private void button_Specialization_Add_Click(object sender, EventArgs e)
+        {
+            using (AddSpecialization AddSpecializationDialog = new AddSpecialization())
+            {
+                AddSpecializationDialog.ShowDialog();
+            }
+            ReadSpecializations();
+        }
+
+        #endregion Tab_Specialization
     }
 }

@@ -46,8 +46,8 @@ namespace Z3_F.DialogForms
             freeAppointmentsBindingSource.DataSource = AppointmentsToDisplay;
 
             UpdateDoctors();
-            UpdateAppointments();
             UpdateCalendar();
+            UpdateAppointments();
 
             ConstructorFinished = true;
         }
@@ -64,14 +64,14 @@ namespace Z3_F.DialogForms
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateDoctors();
-            UpdateAppointments();
             UpdateCalendar();
+            UpdateAppointments();
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateAppointments();
             UpdateCalendar();
+            UpdateAppointments();
         }
 
         private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
@@ -97,13 +97,13 @@ namespace Z3_F.DialogForms
             {
                 if (schedule.Doctor_ID == ((DoctorModel)comboBox2.SelectedItem).ID)
                 {
-                    if (schedule.Date < DateChecker)
+                    if (schedule.Date < DateChecker && AnyAppointmentsAvailableInSchedule(schedule) == true)
                     {
                         DateChecker = schedule.Date;
                     }
                 }
             }
-            if (listBox1.Items.Count > 0)
+            if (DateChecker != DateTime.MaxValue)
             {
                 monthCalendar1.SelectionStart = DateChecker;
             }
@@ -115,6 +115,23 @@ namespace Z3_F.DialogForms
                     MessageBox.Show("Brak wolnych wizyt!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
+
+        private bool AnyAppointmentsAvailableInSchedule(WorkScheduleModel schedule)
+        {
+            DateTime PivotTime = schedule.TimeStart;
+
+            while (PivotTime < schedule.TimeEnd)
+            {
+                if (!Appointments.ToList().Exists(x => x.DateAndTime.ToShortTimeString() == PivotTime.ToShortTimeString()))
+                {
+                    return true;
+                }
+
+                PivotTime = PivotTime.AddMinutes(10);
+            }
+
+            return false;
         }
 
         private void UpdateAppointments()

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox_FirstName = new System.Windows.Forms.TextBox();
             this.textBox_LastName = new System.Windows.Forms.TextBox();
@@ -39,12 +40,16 @@
             this.listBox_Selected = new System.Windows.Forms.ListBox();
             this.button_Add = new System.Windows.Forms.Button();
             this.listBox_Available = new System.Windows.Forms.ListBox();
+            this.specializationModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button_Delete = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button_Edit = new System.Windows.Forms.Button();
+            this.button_Cancel = new System.Windows.Forms.Button();
+            this.button_Save = new System.Windows.Forms.Button();
+            this.specializationModelBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Year)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.specializationModelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.specializationModelBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -140,6 +145,8 @@
             // 
             // listBox_Selected
             // 
+            this.listBox_Selected.DataSource = this.specializationModelBindingSource1;
+            this.listBox_Selected.DisplayMember = "Name";
             this.listBox_Selected.FormattingEnabled = true;
             this.listBox_Selected.Location = new System.Drawing.Point(225, 19);
             this.listBox_Selected.Name = "listBox_Selected";
@@ -154,14 +161,21 @@
             this.button_Add.TabIndex = 11;
             this.button_Add.Text = ">>";
             this.button_Add.UseVisualStyleBackColor = true;
+            this.button_Add.Click += new System.EventHandler(this.button_Add_Click);
             // 
             // listBox_Available
             // 
+            this.listBox_Available.DataSource = this.specializationModelBindingSource;
+            this.listBox_Available.DisplayMember = "Name";
             this.listBox_Available.FormattingEnabled = true;
             this.listBox_Available.Location = new System.Drawing.Point(6, 19);
             this.listBox_Available.Name = "listBox_Available";
             this.listBox_Available.Size = new System.Drawing.Size(120, 108);
             this.listBox_Available.TabIndex = 8;
+            // 
+            // specializationModelBindingSource
+            // 
+            this.specializationModelBindingSource.DataSource = typeof(Data.SpecializationModel);
             // 
             // button_Delete
             // 
@@ -171,24 +185,30 @@
             this.button_Delete.TabIndex = 10;
             this.button_Delete.Text = "<<";
             this.button_Delete.UseVisualStyleBackColor = true;
+            this.button_Delete.Click += new System.EventHandler(this.button_Delete_Click);
             // 
-            // button2
+            // button_Cancel
             // 
-            this.button2.Location = new System.Drawing.Point(253, 268);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(110, 23);
-            this.button2.TabIndex = 19;
-            this.button2.Text = "Anuluj";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button_Cancel.Location = new System.Drawing.Point(253, 268);
+            this.button_Cancel.Name = "button_Cancel";
+            this.button_Cancel.Size = new System.Drawing.Size(110, 23);
+            this.button_Cancel.TabIndex = 19;
+            this.button_Cancel.Text = "Anuluj";
+            this.button_Cancel.UseVisualStyleBackColor = true;
             // 
-            // button_Edit
+            // button_Save
             // 
-            this.button_Edit.Location = new System.Drawing.Point(12, 268);
-            this.button_Edit.Name = "button_Edit";
-            this.button_Edit.Size = new System.Drawing.Size(235, 23);
-            this.button_Edit.TabIndex = 18;
-            this.button_Edit.Text = "Edytuj";
-            this.button_Edit.UseVisualStyleBackColor = true;
+            this.button_Save.Location = new System.Drawing.Point(12, 268);
+            this.button_Save.Name = "button_Save";
+            this.button_Save.Size = new System.Drawing.Size(235, 23);
+            this.button_Save.TabIndex = 18;
+            this.button_Save.Text = "Zapisz";
+            this.button_Save.UseVisualStyleBackColor = true;
+            this.button_Save.Click += new System.EventHandler(this.button_Save_Click);
+            // 
+            // specializationModelBindingSource1
+            // 
+            this.specializationModelBindingSource1.DataSource = typeof(Data.SpecializationModel);
             // 
             // AddDoctor
             // 
@@ -197,14 +217,16 @@
             this.ClientSize = new System.Drawing.Size(375, 301);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button_Edit);
+            this.Controls.Add(this.button_Cancel);
+            this.Controls.Add(this.button_Save);
             this.Name = "AddDoctor";
             this.Text = "Nowy Lekarz";
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Year)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.specializationModelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.specializationModelBindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -223,7 +245,9 @@
         private System.Windows.Forms.Button button_Add;
         private System.Windows.Forms.ListBox listBox_Available;
         private System.Windows.Forms.Button button_Delete;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button_Edit;
+        private System.Windows.Forms.Button button_Cancel;
+        private System.Windows.Forms.Button button_Save;
+        private System.Windows.Forms.BindingSource specializationModelBindingSource;
+        private System.Windows.Forms.BindingSource specializationModelBindingSource1;
     }
 }

@@ -69,6 +69,12 @@
     <Compile Include="DialogForms\AddPatient_Authorized.Designer.cs">
       <DependentUpon>AddPatient_Authorized.cs</DependentUpon>
     </Compile>
+    <Compile Include="DialogForms\AddRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogForms\AddRoom.Designer.cs">
+      <DependentUpon>AddRoom.cs</DependentUpon>
+    </Compile>
     <Compile Include="DialogForms\AddSchedule_EnterRoom.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,12 @@
     </Compile>
     <Compile Include="DialogForms\AddDoctor.Designer.cs">
       <DependentUpon>AddDoctor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DialogForms\AddSpecialization.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogForms\AddSpecialization.Designer.cs">
+      <DependentUpon>AddSpecialization.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -99,6 +111,9 @@
     <EmbeddedResource Include="DialogForms\AddPatient_Authorized.resx">
       <DependentUpon>AddPatient_Authorized.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DialogForms\AddRoom.resx">
+      <DependentUpon>AddRoom.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DialogForms\AddSchedule_EnterRoom.resx">
       <DependentUpon>AddSchedule_EnterRoom.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -106,6 +121,9 @@
     <EmbeddedResource Include="DialogForms\AddDoctor.resx">
       <DependentUpon>AddDoctor.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogForms\AddSpecialization.resx">
+      <DependentUpon>AddSpecialization.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
