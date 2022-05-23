@@ -105,7 +105,15 @@ namespace Z3_F
                     int colIndex = dataGridView_schedule.Columns[tempDoc.ID.ToString()].Index;
 
                     int StartingHour = schedule.TimeStart.Hour;
-                    int EndingHour = schedule.TimeEnd.Hour;
+                    int EndingHour;
+                    if (schedule.TimeEnd.Minute == 59)
+                    {
+                        EndingHour = 24;
+                    }
+                    else
+                    {
+                        EndingHour = schedule.TimeEnd.Hour;
+                    }
 
                     for (int i = StartingHour; i < EndingHour; i++)
                     {
@@ -149,6 +157,11 @@ namespace Z3_F
             {
                 dataGridView_schedule.Rows[i].HeaderCell.Value = Hours[i];
             }
+        }
+
+        private void DeleteScheduleColumn(DoctorModel DoctorBeingDeleted)
+        {
+            dataGridView_schedule.Columns.Remove(DoctorBeingDeleted.ID.ToString());
         }
 
         private void AddMissingColumns()
@@ -263,13 +276,27 @@ namespace Z3_F
                                     0);
 
                             //DateTime TimeEnd
-                            DateTime newTimeEnd = new DateTime(
-                            monthCalendar_schedule.SelectionStart.Date.Year,
-                            monthCalendar_schedule.SelectionStart.Date.Month,
-                            monthCalendar_schedule.SelectionStart.Date.Day,
-                            EndingHour + 1,
-                            0,
-                            0);
+                            DateTime newTimeEnd;
+                            if (EndingHour + 1 == 24)
+                            {
+                                newTimeEnd = new DateTime(
+                                monthCalendar_schedule.SelectionStart.Date.Year,
+                                monthCalendar_schedule.SelectionStart.Date.Month,
+                                monthCalendar_schedule.SelectionStart.Date.Day,
+                                EndingHour,
+                                59,
+                                59);
+                            }
+                            else
+                            {
+                                newTimeEnd = new DateTime(
+                                monthCalendar_schedule.SelectionStart.Date.Year,
+                                monthCalendar_schedule.SelectionStart.Date.Month,
+                                monthCalendar_schedule.SelectionStart.Date.Day,
+                                EndingHour + 1,
+                                0,
+                                0);
+                            }
 
                             WorkScheduleModel NewSchedule = new WorkScheduleModel
                             {
@@ -412,6 +439,8 @@ namespace Z3_F
             if (result == DialogResult.OK)
             {
                 DataAccess.DeleteDoctor((DoctorModel)dataGridView_Doctors.SelectedRows[0].DataBoundItem);
+                DeleteScheduleColumn((DoctorModel)dataGridView_Doctors.SelectedRows[0].DataBoundItem);
+
                 ReadDoctors();
                 ReadSchedule();
                 ReadAppointment();
