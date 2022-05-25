@@ -95,7 +95,7 @@ namespace Z3_F
                     row.Cells[i].Value = null;
                 }
 
-            AddMissingColumns();
+            CheckMissingColumns();
 
             foreach (WorkScheduleModel schedule in Schedule)
             {
@@ -149,7 +149,7 @@ namespace Z3_F
                "20:00 - 21:00", "21:00 - 22:00", "22:00 - 23:00", "23:00 - 24:00",
             };
 
-            AddMissingColumns();
+            ReloadColumns();
 
             dataGridView_schedule.Rows.Add(Hours.Count);
 
@@ -164,13 +164,27 @@ namespace Z3_F
             dataGridView_schedule.Columns.Remove(DoctorBeingDeleted.ID.ToString());
         }
 
-        private void AddMissingColumns()
+        private void CheckMissingColumns()
         {
             foreach (DoctorModel doc in Doctors)
             {
-                if (dataGridView_schedule.Columns.Contains(doc.ID.ToString()))
-                    continue;
+                if (!dataGridView_schedule.Columns.Contains(doc.ID.ToString()))
+                {
+                    ReloadColumns();
+                    return;
+                }
+            }
+        }
 
+        private void ReloadColumns()
+        {
+            while (dataGridView_schedule.Columns.Count > 1)
+            {
+                dataGridView_schedule.Columns.RemoveAt(1);
+            }
+
+            foreach (DoctorModel doc in Doctors)
+            {
                 int tempColIndex = dataGridView_schedule.Columns.Add(doc.ID.ToString(), doc.ToString() + " (ID:" + doc.ID + ")");
                 dataGridView_schedule.Columns[tempColIndex].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
@@ -258,7 +272,7 @@ namespace Z3_F
                         else
                         {
                             //int Doctor_ID
-                            int newDoctor_ID = int.Parse(Doctors[dataGridView_schedule.SelectedCells[0].ColumnIndex].ID.ToString());
+                            int newDoctor_ID = int.Parse(Doctors[dataGridView_schedule.SelectedCells[0].ColumnIndex - 1].ID.ToString());
 
                             //DateTime Date
                             DateTime newDate = new DateTime(
@@ -432,8 +446,7 @@ namespace Z3_F
 
         private void button_Worker_Delete_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Usunięcie pracownika spowoduje skasowanie wszystkich powiązanych dyżurów oraz umówionych wizyt.\nKontynuować?" +
-                "\n(napraw ten syfiaste dodawanie kolumn w grafiku żeby kasowanie pracowników działało jak należy)",
+            DialogResult result = MessageBox.Show("Usunięcie pracownika spowoduje skasowanie wszystkich powiązanych dyżurów oraz umówionych wizyt.\nKontynuować?",
                 "Informacja", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
             if (result == DialogResult.OK)
