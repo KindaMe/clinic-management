@@ -406,6 +406,19 @@ namespace Z3_F
             ReadAppointment();
         }
 
+        private void button_Appointment_Delete_Click(object sender, EventArgs e)
+        {
+            if (dataGridView_Appointments.SelectedRows.Count > 0)
+            {
+                DialogResult result = MessageBox.Show("Próbujesz usunąć wizytę.\nKontynuować?", "Informacja", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (result == DialogResult.OK)
+                {
+                    DataAccess.DeleteAppointment((AppointmentView)dataGridView_Appointments.SelectedRows[0].DataBoundItem);
+                    ReadAppointment();
+                }
+            }
+        }
+
         #endregion Tab_Appointment
 
         #region Tab_Patient

@@ -282,6 +282,14 @@ namespace Data
             }
         }
 
+        public static void DeleteAppointment(AppointmentView AppointmentToDelete)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("delete from Appointments where ID = @ID", AppointmentToDelete);
+            }
+        }
+
         #endregion Delete Data
     }
 }
