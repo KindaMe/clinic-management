@@ -332,7 +332,7 @@ namespace Z3_F
                     {
                         //might need to work a lil bit more on that one xDD
                         WorkScheduleModel ScheduleToEdit = Schedule.ToList().Find(
-                        x => (Doctors.ToList().FindIndex(y => y.ID == x.Doctor_ID)) == cell.ColumnIndex
+                        x => (Doctors.ToList().FindIndex(y => y.ID == x.Doctor_ID)) == cell.ColumnIndex - 1
                         && x.Date.ToShortDateString() == monthCalendar_schedule.SelectionStart.ToShortDateString()
                         && x.TimeStart.Hour <= cell.RowIndex
                         && x.TimeEnd.Hour > cell.RowIndex);
