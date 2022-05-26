@@ -27,7 +27,7 @@ namespace Z3_F
             ReadAppointment();
 
             InitSchedule();
-            ReadSchedule();
+            ReadSchedule(true);
 
             //improves datagridview performance
             typeof(DataGridView).InvokeMember("DoubleBuffered", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty, null, dataGridView_schedule, new object[] { true });
@@ -57,7 +57,7 @@ namespace Z3_F
         private BindingList<PatientModel> Patients;
         private BindingList<RoomModel> Rooms;
         private BindingList<WorkScheduleModel> Schedule;
-        private BindingList<AppointmentView> AppointmentView;
+        private BindingList<AppointmentModel> Appointments;
 
         private void ReadDoctors()
         {
@@ -84,7 +84,7 @@ namespace Z3_F
             roomModelBindingSource.DataSource = Rooms;
         }
 
-        private void ReadSchedule()//needs a lil remake
+        private void ReadSchedule(bool DirtyHeaders)
         {
             Schedule = DataAccess.LoadSchedule();
 
@@ -94,8 +94,8 @@ namespace Z3_F
                     row.Cells[i].Style.BackColor = Color.White;
                     row.Cells[i].Value = null;
                 }
-
-            CheckMissingColumns();
+            if (DirtyHeaders)
+                ReloadColumns();
 
             foreach (WorkScheduleModel schedule in Schedule)
             {
@@ -127,8 +127,8 @@ namespace Z3_F
 
         private void ReadAppointment()
         {
-            AppointmentView = DataAccess.LoadAppointmentView(((DoctorModel)listBox_Appointment_Doctors.SelectedItem).ID, monthCalendar_Appointment.SelectionStart);
-            appointmentViewBindingSource.DataSource = AppointmentView;
+            Appointments = DataAccess.LoadAppointmentsView(((DoctorModel)listBox_Appointment_Doctors.SelectedItem).ID, monthCalendar_Appointment.SelectionStart);
+            appointmentModelBindingSource.DataSource = Appointments;
         }
 
         #endregion Local Data Storage
@@ -164,18 +164,6 @@ namespace Z3_F
             dataGridView_schedule.Columns.Remove(DoctorBeingDeleted.ID.ToString());
         }
 
-        private void CheckMissingColumns()
-        {
-            foreach (DoctorModel doc in Doctors)
-            {
-                if (!dataGridView_schedule.Columns.Contains(doc.ID.ToString()))
-                {
-                    ReloadColumns();
-                    return;
-                }
-            }
-        }
-
         private void ReloadColumns()
         {
             while (dataGridView_schedule.Columns.Count > 1)
@@ -192,7 +180,7 @@ namespace Z3_F
 
         private void monthCalendar_schedule_DateChanged(object sender, DateRangeEventArgs e)
         {
-            ReadSchedule();
+            ReadSchedule(false);
 
             dataGridView_schedule.ClearSelection();
         }
@@ -322,7 +310,7 @@ namespace Z3_F
 
                             AddSchedule_EnterRoom ChooseRoomDialog = new AddSchedule_EnterRoom(Cursor.Position.X, Cursor.Position.Y, NewSchedule, FreeRooms);
                             ChooseRoomDialog.ShowDialog();
-                            ReadSchedule();
+                            ReadSchedule(false);
                         }
                     }
                 }
@@ -348,7 +336,7 @@ namespace Z3_F
                                 ScheduleToEdit.TimeEnd = ScheduleToEdit.TimeEnd.AddHours(cell.RowIndex - ScheduleToEdit.TimeEnd.Hour);
                             }
                             DataAccess.UpdateSchedule(ScheduleToEdit);
-                            ReadSchedule();
+                            ReadSchedule(false);
                         }
                     }
                 }
@@ -388,7 +376,7 @@ namespace Z3_F
 
         private void button13_Click(object sender, EventArgs e)
         {
-            using (AddAppointment AddAppointmentDialog = new AddAppointment(Specializations, Doctors, Schedule, Patients, Rooms))
+            using (AddAppointment AddAppointmentDialog = new AddAppointment())
             {
                 AddAppointmentDialog.ShowDialog();
             }
@@ -413,9 +401,21 @@ namespace Z3_F
                 DialogResult result = MessageBox.Show("Próbujesz usunąć wizytę.\nKontynuować?", "Informacja", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.OK)
                 {
-                    DataAccess.DeleteAppointment((AppointmentView)dataGridView_Appointments.SelectedRows[0].DataBoundItem);
+                    DataAccess.DeleteAppointment((AppointmentModel)dataGridView_Appointments.SelectedRows[0].DataBoundItem);
                     ReadAppointment();
                 }
+            }
+        }
+
+        private void button_Appointment_Edit_Click(object sender, EventArgs e)
+        {
+            if (dataGridView_Appointments.SelectedRows.Count > 0)
+            {
+                using (AddAppointment AddAppointmentDialog = new AddAppointment((AppointmentModel)dataGridView_Appointments.SelectedRows[0].DataBoundItem))
+                {
+                    AddAppointmentDialog.ShowDialog();
+                }
+                ReadAppointment();
             }
         }
 
@@ -443,6 +443,16 @@ namespace Z3_F
             }
         }
 
+        private void button_Patient_Edit_Click(object sender, EventArgs e)
+        {
+            using (AddPatient AddPatientDialog = new AddPatient((PatientModel)dataGridView1.SelectedRows[0].DataBoundItem))
+            {
+                AddPatientDialog.ShowDialog();
+            }
+            ReadPatients();
+            ReadAppointment();
+        }
+
         #endregion Tab_Patient
 
         #region Tab_Worker
@@ -454,7 +464,7 @@ namespace Z3_F
                 AddDoctorDialog.ShowDialog();
             }
             ReadDoctors();
-            ReadSchedule();
+            ReadSchedule(true);
         }
 
         private void button_Worker_Delete_Click(object sender, EventArgs e)
@@ -468,7 +478,21 @@ namespace Z3_F
                 DeleteScheduleColumn((DoctorModel)dataGridView_Doctors.SelectedRows[0].DataBoundItem);
 
                 ReadDoctors();
-                ReadSchedule();
+                ReadSchedule(true);
+                ReadAppointment();
+            }
+        }
+
+        private void button_Worker_Edit_Click(object sender, EventArgs e)
+        {
+            if (dataGridView_Doctors.SelectedRows.Count > 0)
+            {
+                using (AddDoctor AddDoctorDialog = new AddDoctor((DoctorModel)dataGridView_Doctors.SelectedRows[0].DataBoundItem))
+                {
+                    AddDoctorDialog.ShowDialog();
+                }
+                ReadDoctors();
+                ReadSchedule(true);
                 ReadAppointment();
             }
         }
@@ -493,7 +517,21 @@ namespace Z3_F
             {
                 DataAccess.DeleteRoom((RoomModel)dataGridView3.SelectedRows[0].DataBoundItem);
                 ReadRooms();
-                ReadSchedule();
+                ReadSchedule(false);
+                ReadAppointment();
+            }
+        }
+
+        private void button_Room_Edit_Click(object sender, EventArgs e)
+        {
+            if (dataGridView3.SelectedRows.Count > 0)
+            {
+                using (AddRoom AddRoomDialog = new AddRoom((RoomModel)dataGridView3.SelectedRows[0].DataBoundItem))
+                {
+                    AddRoomDialog.ShowDialog();
+                }
+                ReadRooms();
+                ReadSchedule(false);
                 ReadAppointment();
             }
         }
@@ -517,6 +555,20 @@ namespace Z3_F
             if (result == DialogResult.OK)
             {
                 DataAccess.DeleteSpecialization((SpecializationModel)dataGridView_Specializations.SelectedRows[0].DataBoundItem);
+                ReadSpecializations();
+                ReadDoctors();
+                ReadAppointment();
+            }
+        }
+
+        private void button_Specialization_Edit_Click(object sender, EventArgs e)
+        {
+            if (dataGridView_Specializations.SelectedRows.Count > 0)
+            {
+                using (AddSpecialization AddSpecializationDialog = new AddSpecialization((SpecializationModel)dataGridView_Specializations.SelectedRows[0].DataBoundItem))
+                {
+                    AddSpecializationDialog.ShowDialog();
+                }
                 ReadSpecializations();
                 ReadDoctors();
                 ReadAppointment();

@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
@@ -19,7 +20,7 @@ namespace Data
 
         #endregion Connection String
 
-        #region Read Data
+        #region Select Data
 
         public static BindingList<DoctorModel> LoadDoctors()
         {
@@ -106,33 +107,70 @@ namespace Data
             }
         }
 
-        public static BindingList<AppointmentView> LoadAppointmentView(int DoctorIndex, DateTime Date)
+        #region Appointment View
+
+        public static BindingList<AppointmentModel> LoadAppointmentsView(int DoctorIndex, DateTime Date)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 var parameters = new { Doc_ID = DoctorIndex, Day = Date };
 
-                var output = cnn.Query<AppointmentView>("SELECT Appointments.ID, " +
-                    "Patients.LastName || ' ' || Patients.FirstName AS Patient, " +
-                    "Doctors.LastName || ' ' || Doctors.FirstName AS Doctor, " +
-                    "Appointments.DateAndTime, " +
-                    "Rooms.Number AS Room " +
-                    "FROM Appointments " +
-                    "INNER JOIN " +
-                    "Patients ON Appointments.Patient_ID = Patients.ID " +
-                    "INNER JOIN " +
-                    "Doctors ON Appointments.Doctor_ID = Doctors.ID " +
-                    "INNER JOIN " +
-                    "Rooms ON Appointments.Room_ID = Rooms.ID " +
-                    "where Doctors.ID = @Doc_ID and DATE(Appointments.DateAndTime) = DATE(@Day);", parameters);
+                var output = cnn.Query<AppointmentModel>("SELECT * FROM Appointments " +
+                    "where Doctor_ID = @Doc_ID and DATE(DateAndTime) = DATE(@Day);", parameters);
 
-                return new BindingList<AppointmentView>(output.ToList());
+                return new BindingList<AppointmentModel>(output.ToList());
             }
         }
 
-        #endregion Read Data
+        public static string GetSpecializationName(int SpecializationID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var parameters = new { ID = SpecializationID };
+                var output = cnn.QueryFirst<string>("select Name from Specializations where ID=@ID", parameters);
 
-        #region Write Data
+                return output;
+            }
+        }
+
+        public static string GetPatientName(int PatientID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var parameters = new { ID = PatientID };
+                var output = cnn.QueryFirst<string>("select LastName ||' '|| FirstName from Patients where ID=@ID", parameters);
+
+                return output;
+            }
+        }
+
+        public static string GetDoctorName(int DoctorID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var parameters = new { ID = DoctorID };
+                var output = cnn.QueryFirst<string>("select LastName ||' '|| FirstName from Doctors where ID=@ID", parameters);
+
+                return output;
+            }
+        }
+
+        public static int GetRoomName(int RoomID)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var parameters = new { ID = RoomID };
+                var output = cnn.QueryFirst<int>("select Number from Rooms where ID=@ID", parameters);
+
+                return output;
+            }
+        }
+
+        #endregion Appointment View
+
+        #endregion Select Data
+
+        #region Insert Data
 
         public static void InsertSchedule(WorkScheduleModel NewSchedule)
         {
@@ -140,21 +178,6 @@ namespace Data
             {
                 var output = cnn.Query<RoomModel>("select * from Rooms order by Number", new DynamicParameters());
                 cnn.Execute("insert into Schedule (Doctor_ID,Date,TimeStart,TimeEnd,Room_ID) values (@Doctor_ID,@Date,@TimeStart,@TimeEnd,@Room_ID)", NewSchedule);
-            }
-        }
-
-        public static void UpdateSchedule(WorkScheduleModel ScheduleToUpdate)
-        {
-            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-            {
-                if (ScheduleToUpdate.TimeStart != ScheduleToUpdate.TimeEnd)
-                {
-                    cnn.Execute("update Schedule SET TimeStart = @TimeStart,TimeEnd = @TimeEnd WHERE ID = @ID ", ScheduleToUpdate);
-                }
-                else
-                {
-                    cnn.Execute("delete from Schedule where ID=@ID", ScheduleToUpdate);
-                }
             }
         }
 
@@ -190,7 +213,7 @@ namespace Data
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("insert into Appointments (Patient_ID,Doctor_ID,DateAndTime,Room_ID) values (@Patient_ID,@Doctor_ID,@DateAndTime,@Room_ID)", NewAppointment);
+                cnn.Execute("insert into Appointments (Specialization_ID,Patient_ID,Doctor_ID,DateAndTime,Room_ID) values (@Specialization_ID,@Patient_ID,@Doctor_ID,@DateAndTime,@Room_ID)", NewAppointment);
             }
         }
 
@@ -223,7 +246,97 @@ namespace Data
             }
         }
 
-        #endregion Write Data
+        #endregion Insert Data
+
+        #region Update Data
+
+        public static void UpdateSchedule(WorkScheduleModel ScheduleToUpdate)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                if (ScheduleToUpdate.TimeStart != ScheduleToUpdate.TimeEnd)
+                {
+                    cnn.Execute("update Schedule SET TimeStart = @TimeStart,TimeEnd = @TimeEnd WHERE ID = @ID ", ScheduleToUpdate);
+                }
+                else
+                {
+                    cnn.Execute("delete from Schedule where ID = @ID", ScheduleToUpdate);
+                }
+            }
+        }
+
+        public static void UpdateRoom(RoomModel RoomToUpdate)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("update Rooms set Number = @Number where ID = @ID", RoomToUpdate);
+            }
+        }
+
+        public static void UpdateSpecialization(SpecializationModel SpecializationToUpdate)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("update Specializations set Name = @Name where ID = @ID", SpecializationToUpdate);
+            }
+        }
+
+        public static void UpdateDoctor(DoctorModel DoctorToUpdate)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("update Doctors set FirstName = @FirstName, LastName = @LastName, BeganWorkYear = @BeganWorkYear where ID = @ID", DoctorToUpdate);
+
+                BindingList<SpecializationModel> AllSpecializations = LoadSpecializations();
+
+                var AllDoctorSpecializations = cnn.Query<SpecializationModel>(
+                    "SELECT ID, Name " +
+                    "FROM Specializations " +
+                    "INNER JOIN " +
+                    "Doctors_Specializations ON Specializations.ID = Doctors_Specializations.Specialization_ID " +
+                    "WHERE Doctor_ID = @ID; ", DoctorToUpdate);
+
+                foreach (SpecializationModel Spec in AllSpecializations)
+                {
+                    var parameters = new { Doctor_ID = DoctorToUpdate.ID, Specialization_ID = Spec.ID };
+
+                    if (AllDoctorSpecializations.ToList().Exists(x => x.ID == Spec.ID) == true && DoctorToUpdate.Specializations.ToList().Exists(x => x.ID == Spec.ID) == false)
+                    {
+                        cnn.Execute("delete from Doctors_Specializations where Doctor_ID = @Doctor_ID and Specialization_ID = @Specialization_ID", parameters);
+                        cnn.Execute("delete from Appointments where Doctor_ID = @Doctor_ID and Specialization_ID = @Specialization_ID", parameters);
+                    }
+                    else if (AllDoctorSpecializations.ToList().Exists(x => x.ID == Spec.ID) == false && DoctorToUpdate.Specializations.ToList().Exists(x => x.ID == Spec.ID) == true)
+                    {
+                        cnn.Execute("insert into Doctors_Specializations (Doctor_ID,Specialization_ID) values (@Doctor_ID,@Specialization_ID)", parameters);
+                    }
+                }
+            }
+        }
+
+        public static void UpdatePatient(PatientModel PatientToUpdate)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("update Patients set FirstName = @FirstName, LastName = @LastName, NumberID = @NumberID, BornYear = @BornYear, Address = @Address, NumberPhone = @NumberPhone, Email = @Email where ID=@ID", PatientToUpdate);
+
+                cnn.Execute("DELETE FROM AuthorizedPeople " +
+                    "WHERE AuthorizedPeople.ID IN(" +
+                    "SELECT Patients_AuthorizedPeople.AuthorizedPerson_ID " +
+                    "FROM Patients_AuthorizedPeople " +
+                    "WHERE Patients_AuthorizedPeople.Patient_ID IN(" +
+                    "SELECT Patients.ID " +
+                    "FROM Patients " +
+                    "WHERE Patients.ID = @ID)); ", PatientToUpdate);
+
+                foreach (AuthorizedPersonModel AuthPerson in PatientToUpdate.AuthorizedPeople)
+                {
+                    var parameters = new { Patient_ID = PatientToUpdate.ID, AuthorizedPerson_ID = InsertAuthorizedPerson(AuthPerson) };
+                    cnn.Execute("insert into Patients_AuthorizedPeople (Patient_ID,AuthorizedPerson_ID) values (@Patient_ID,@AuthorizedPerson_ID)", parameters);
+                }
+            }
+        }
+
+        #endregion Update Data
 
         #region Delete Data
 
@@ -242,17 +355,7 @@ namespace Data
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("DELETE FROM Appointments " +
-                    "WHERE Appointments.Doctor_ID IN(" +
-                    "SELECT Doctors.ID " +
-                    "FROM Doctors " +
-                    "WHERE Doctors.ID IN(" +
-                    "SELECT Doctors_Specializations.Doctor_ID " +
-                    "FROM Doctors_Specializations " +
-                    "WHERE Doctors_Specializations.Specialization_ID IN(" +
-                    "SELECT Specializations.ID " +
-                    "FROM Specializations " +
-                    "WHERE Specializations.ID = @ID)));", SpecializationToDelete);
+                cnn.Execute("delete from Appointments where Specialization_ID = @ID;", SpecializationToDelete);
                 cnn.Execute("delete from Doctors_Specializations where Specialization_ID = @ID", SpecializationToDelete);
 
                 cnn.Execute("delete from Specializations where ID = @ID", SpecializationToDelete);
@@ -275,6 +378,14 @@ namespace Data
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
+                cnn.Execute("DELETE FROM AuthorizedPeople " +
+                    "WHERE AuthorizedPeople.ID IN( " +
+                    "SELECT Patients_AuthorizedPeople.AuthorizedPerson_ID " +
+                    "FROM Patients_AuthorizedPeople " +
+                    "WHERE Patients_AuthorizedPeople.Patient_ID IN( " +
+                    "SELECT Patients.ID " +
+                    "FROM Patients " +
+                    "WHERE Patients.ID = @ID)); ", PatientToDelete);
                 cnn.Execute("delete from Patients_AuthorizedPeople where Patient_ID = @ID", PatientToDelete);
                 cnn.Execute("delete from Appointments where Patient_ID = @ID", PatientToDelete);
 
@@ -282,7 +393,7 @@ namespace Data
             }
         }
 
-        public static void DeleteAppointment(AppointmentView AppointmentToDelete)
+        public static void DeleteAppointment(AppointmentModel AppointmentToDelete)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {

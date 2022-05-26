@@ -1,6 +1,7 @@
 ﻿using Data;
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Z3_F.DialogForms
@@ -9,6 +10,8 @@ namespace Z3_F.DialogForms
     {
         private BindingList<SpecializationModel> AllSpecializations;
         private BindingList<SpecializationModel> SelectedSpecializations;
+
+        private DoctorModel DoctorToEdit;
 
         public AddDoctor()
         {
@@ -21,6 +24,37 @@ namespace Z3_F.DialogForms
             specializationModelBindingSource1.DataSource = SelectedSpecializations;
 
             numericUpDown_Year.Value = DateTime.Now.Year;
+        }
+
+        public AddDoctor(DoctorModel DoctorToEdit)
+        {
+            InitializeComponent();
+
+            this.DoctorToEdit = DoctorToEdit;
+
+            this.Text = "Edytuj Lekarza";
+            button_Save.Text = "Zapisz";
+
+            textBox_FirstName.Text = DoctorToEdit.FirstName;
+            textBox_LastName.Text = DoctorToEdit.LastName;
+            numericUpDown_Year.Value = DoctorToEdit.BeganWorkYear;
+
+            AllSpecializations = DataAccess.LoadSpecializations();
+            SelectedSpecializations = new BindingList<SpecializationModel>();
+
+            foreach (var DoctorSpecialization in DoctorToEdit.Specializations)
+            {
+                if (AllSpecializations.ToList().Exists(x => x.ID == DoctorSpecialization.ID))
+                {
+                    var temp = AllSpecializations.ToList().Find(x => x.ID == DoctorSpecialization.ID);
+
+                    SelectedSpecializations.Add(temp);
+                    AllSpecializations.Remove(temp);
+                }
+            }
+
+            specializationModelBindingSource.DataSource = AllSpecializations;
+            specializationModelBindingSource1.DataSource = SelectedSpecializations;
         }
 
         private void button_Add_Click(object sender, EventArgs e)
@@ -45,22 +79,45 @@ namespace Z3_F.DialogForms
         {
             if (textBox_FirstName.Text != "" && textBox_LastName.Text != "" && listBox_Selected.Items.Count > 0)
             {
-                DoctorModel NewDoctor = new DoctorModel
+                if (DoctorToEdit != null)
                 {
-                    FirstName = textBox_FirstName.Text,
-                    LastName = textBox_LastName.Text,
-                    BeganWorkYear = (int)numericUpDown_Year.Value,
-                    Specializations = SelectedSpecializations
-                };
+                    DoctorModel EditedDoctor = new DoctorModel
+                    {
+                        ID = DoctorToEdit.ID,
+                        FirstName = textBox_FirstName.Text,
+                        LastName = textBox_LastName.Text,
+                        BeganWorkYear = (int)numericUpDown_Year.Value,
+                        Specializations = SelectedSpecializations
+                    };
 
-                DataAccess.InsertDoctor(NewDoctor);
-                MessageBox.Show("Pracownik został dodany pomyślnie!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                    DataAccess.UpdateDoctor(EditedDoctor);
+                    MessageBox.Show("Pracownik został zaktualizowany pomyślnie!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                else
+                {
+                    DoctorModel NewDoctor = new DoctorModel
+                    {
+                        FirstName = textBox_FirstName.Text,
+                        LastName = textBox_LastName.Text,
+                        BeganWorkYear = (int)numericUpDown_Year.Value,
+                        Specializations = SelectedSpecializations
+                    };
+
+                    DataAccess.InsertDoctor(NewDoctor);
+                    MessageBox.Show("Pracownik został dodany pomyślnie!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
             }
             else
             {
                 MessageBox.Show("Dane nie są kompletne!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+        }
+
+        private void button_Cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -9,43 +9,77 @@ namespace Z3_F.DialogForms
 {
     public partial class AddAppointment : Form
     {
+        private bool IsEditing = false;
+
         private PatientModel ChosenPatient;
 
         private bool ConstructorFinished = false;
 
         private BindingList<PatientModel> Patients;
+
         private BindingList<SpecializationModel> Specializations;
+
         private BindingList<DoctorModel> Doctors;
         private List<DoctorModel> DoctorsToDisplay;
+
         private BindingList<WorkScheduleModel> Schedule;
+
         private BindingList<RoomModel> Rooms;
+
         private BindingList<AppointmentModel> Appointments;
         private BindingList<FreeAppointments> AppointmentsToDisplay;
 
-        public AddAppointment(BindingList<SpecializationModel> _Specializations, BindingList<DoctorModel> _Doctors, BindingList<WorkScheduleModel> _Schedule, BindingList<PatientModel> _Patients, BindingList<RoomModel> _Rooms)
+        public AddAppointment()
         {
             InitializeComponent();
 
-            Patients = _Patients;
-
-            Rooms = _Rooms;
-
-            Specializations = _Specializations;
-            specializationModelBindingSource.DataSource = Specializations;
-
-            Doctors = _Doctors;
-            Schedule = _Schedule;
-
-            Appointments = DataAccess.LoadAppointments();
-
-            AppointmentsToDisplay = new BindingList<FreeAppointments>();
-            freeAppointmentsBindingSource.DataSource = AppointmentsToDisplay;
+            InitData();
 
             UpdateDoctors();
             UpdateCalendar();
             UpdateAppointments();
 
             ConstructorFinished = true;
+        }
+
+        public AddAppointment(AppointmentModel AppointmentToEdit)
+        {
+            InitializeComponent();
+
+            IsEditing = true;
+
+            InitData();
+
+            ChosenPatient = Patients.ToList().Find(x => x.ID == AppointmentToEdit.ID);
+            textBox_NumberID.Text = ChosenPatient.NumberID;
+            textBox_DisplayPatient.Text = ChosenPatient.ToString();
+
+            comboBox1.SelectedIndex = Specializations.ToList().FindIndex(x => x.ID == AppointmentToEdit.Specialization_ID);
+            UpdateDoctors();
+
+            comboBox2.SelectedIndex = DoctorsToDisplay.ToList().FindIndex(x => x.ID == AppointmentToEdit.Doctor_ID);
+
+            monthCalendar1.SelectionStart = AppointmentToEdit.DateAndTime;
+            UpdateAppointments();
+        }
+
+        public void InitData()
+        {
+            Patients = DataAccess.LoadPatients();
+
+            Rooms = DataAccess.LoadRooms();
+
+            Specializations = DataAccess.LoadSpecializations();
+            specializationModelBindingSource.DataSource = Specializations;
+
+            Doctors = DataAccess.LoadDoctors();
+
+            Schedule = DataAccess.LoadSchedule();
+
+            Appointments = DataAccess.LoadAppointments();
+
+            AppointmentsToDisplay = new BindingList<FreeAppointments>();
+            freeAppointmentsBindingSource.DataSource = AppointmentsToDisplay;
         }
 
         private void AddAppointment_FormClosing(object sender, FormClosingEventArgs e) //disables triggers on form closing
@@ -212,17 +246,25 @@ namespace Z3_F.DialogForms
         {
             if (ChosenPatient != null && listBox1.SelectedIndices.Count > 0)
             {
-                AppointmentModel NewAppointment = new AppointmentModel
+                if (IsEditing == false)
                 {
-                    Patient_ID = ChosenPatient.ID,
-                    Doctor_ID = ((DoctorModel)comboBox2.SelectedItem).ID,
-                    DateAndTime = ((FreeAppointments)listBox1.SelectedItem).time,
-                    Room_ID = ((FreeAppointments)listBox1.SelectedItem).Room_ID
-                };
+                    AppointmentModel NewAppointment = new AppointmentModel
+                    {
+                        Specialization_ID = ((SpecializationModel)comboBox1.SelectedItem).ID,
+                        Patient_ID = ChosenPatient.ID,
+                        Doctor_ID = ((DoctorModel)comboBox2.SelectedItem).ID,
+                        DateAndTime = ((FreeAppointments)listBox1.SelectedItem).time,
+                        Room_ID = ((FreeAppointments)listBox1.SelectedItem).Room_ID
+                    };
 
-                DataAccess.InsertAppointment(NewAppointment);
-                MessageBox.Show("Wizyta została dodana pomyślnie!\nNumer gabinetu - " + Rooms.ToList().Find(x => x.ID == NewAppointment.Room_ID).Number + ".", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                    DataAccess.InsertAppointment(NewAppointment);
+                    MessageBox.Show("Wizyta została dodana pomyślnie!\nNumer gabinetu - " + Rooms.ToList().Find(x => x.ID == NewAppointment.Room_ID).Number + ".", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
+                }
+                else
+                {
+                    //update appointment in db
+                }
             }
             else
             {

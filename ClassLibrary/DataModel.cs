@@ -75,19 +75,28 @@ namespace Data
     public class AppointmentModel
     {
         public int ID { get; set; }
-        public int Patient_ID { get; set; }
-        public int Doctor_ID { get; set; }
-        public DateTime DateAndTime { get; set; }
-        public int Room_ID { get; set; }
-    }
 
-    public class AppointmentView
-    {
-        public int ID { get; set; }
-        public string Patient { get; set; }
-        public string Doctor { get; set; }
+        public int Specialization_ID { get; set; }
+
+        public string Specialization
+        { get { return DataAccess.GetSpecializationName(Specialization_ID); } }
+
+        public int Patient_ID { get; set; }
+
+        public string Patient
+        { get { return DataAccess.GetPatientName(Patient_ID); } }
+
+        public int Doctor_ID { get; set; }
+
+        public string Doctor
+        { get { return DataAccess.GetDoctorName(Doctor_ID); } }
+
         public DateTime DateAndTime { get; set; }
-        public int Room { get; set; }
+
+        public int Room_ID { get; set; }
+
+        public int Room
+        { get { return DataAccess.GetRoomName(Room_ID); } }
     }
 
     public class FreeAppointments
