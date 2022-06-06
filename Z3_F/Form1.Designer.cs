@@ -50,6 +50,10 @@
             this.button_Appointment_Edit = new System.Windows.Forms.Button();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.dataGridView_Appointments = new System.Windows.Forms.DataGridView();
+            this.dateAndTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.specializationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.patientDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.roomDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.appointmentModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.monthCalendar_Appointment = new System.Windows.Forms.MonthCalendar();
@@ -119,10 +123,6 @@
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.numberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.roomModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dateAndTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.specializationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patientDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.roomDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.groupBox17.SuspendLayout();
@@ -302,6 +302,34 @@
             this.dataGridView_Appointments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView_Appointments.Size = new System.Drawing.Size(987, 568);
             this.dataGridView_Appointments.TabIndex = 0;
+            // 
+            // dateAndTimeDataGridViewTextBoxColumn
+            // 
+            this.dateAndTimeDataGridViewTextBoxColumn.DataPropertyName = "DateAndTime";
+            this.dateAndTimeDataGridViewTextBoxColumn.HeaderText = "Data";
+            this.dateAndTimeDataGridViewTextBoxColumn.Name = "dateAndTimeDataGridViewTextBoxColumn";
+            this.dateAndTimeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // specializationDataGridViewTextBoxColumn
+            // 
+            this.specializationDataGridViewTextBoxColumn.DataPropertyName = "Specialization";
+            this.specializationDataGridViewTextBoxColumn.HeaderText = "Specialization";
+            this.specializationDataGridViewTextBoxColumn.Name = "specializationDataGridViewTextBoxColumn";
+            this.specializationDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // patientDataGridViewTextBoxColumn
+            // 
+            this.patientDataGridViewTextBoxColumn.DataPropertyName = "Patient";
+            this.patientDataGridViewTextBoxColumn.HeaderText = "Pacjent";
+            this.patientDataGridViewTextBoxColumn.Name = "patientDataGridViewTextBoxColumn";
+            this.patientDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // roomDataGridViewTextBoxColumn
+            // 
+            this.roomDataGridViewTextBoxColumn.DataPropertyName = "Room";
+            this.roomDataGridViewTextBoxColumn.HeaderText = "Gabinet";
+            this.roomDataGridViewTextBoxColumn.Name = "roomDataGridViewTextBoxColumn";
+            this.roomDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // appointmentModelBindingSource
             // 
@@ -1182,34 +1210,6 @@
             // roomModelBindingSource
             // 
             this.roomModelBindingSource.DataSource = typeof(Data.RoomModel);
-            // 
-            // dateAndTimeDataGridViewTextBoxColumn
-            // 
-            this.dateAndTimeDataGridViewTextBoxColumn.DataPropertyName = "DateAndTime";
-            this.dateAndTimeDataGridViewTextBoxColumn.HeaderText = "Data";
-            this.dateAndTimeDataGridViewTextBoxColumn.Name = "dateAndTimeDataGridViewTextBoxColumn";
-            this.dateAndTimeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // specializationDataGridViewTextBoxColumn
-            // 
-            this.specializationDataGridViewTextBoxColumn.DataPropertyName = "Specialization";
-            this.specializationDataGridViewTextBoxColumn.HeaderText = "Specialization";
-            this.specializationDataGridViewTextBoxColumn.Name = "specializationDataGridViewTextBoxColumn";
-            this.specializationDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // patientDataGridViewTextBoxColumn
-            // 
-            this.patientDataGridViewTextBoxColumn.DataPropertyName = "Patient";
-            this.patientDataGridViewTextBoxColumn.HeaderText = "Pacjent";
-            this.patientDataGridViewTextBoxColumn.Name = "patientDataGridViewTextBoxColumn";
-            this.patientDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // roomDataGridViewTextBoxColumn
-            // 
-            this.roomDataGridViewTextBoxColumn.DataPropertyName = "Room";
-            this.roomDataGridViewTextBoxColumn.HeaderText = "Gabinet";
-            this.roomDataGridViewTextBoxColumn.Name = "roomDataGridViewTextBoxColumn";
-            this.roomDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // Form1
             // 

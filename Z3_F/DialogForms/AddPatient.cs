@@ -55,6 +55,8 @@ namespace Z3_F.DialogForms
             };
 
             PatientModelBindingSource.DataSource = NewPatient;
+
+            BoxEnabler();
         }
 
         public AddPatient(string NumberID) : this()
@@ -71,7 +73,18 @@ namespace Z3_F.DialogForms
 
         private void button_Save_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "" && textBox4.Text != "" && textBox5.Text != "" && textBox6.Text != "")
+            bool AuthPplMissingData = false;
+
+            foreach (AuthorizedPersonModel authorizedPerson in NewPatient.AuthorizedPeople)
+            {
+                if (authorizedPerson.FirstName == null || authorizedPerson.LastName == null)
+                {
+                    AuthPplMissingData = true;
+                    break;
+                }
+            }
+
+            if (textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "" && textBox4.Text != "" && textBox5.Text != "" && textBox6.Text != "" && AuthPplMissingData == false)
             {
                 if (IsEditing == false)
                 {
