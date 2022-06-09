@@ -104,23 +104,11 @@ namespace Z3_F
                     DoctorModel tempDoc = Doctors.ToList().Find(x => x.ID == schedule.Doctor_ID);
                     int colIndex = dataGridView_schedule.Columns[tempDoc.ID.ToString()].Index;
 
-                    int StartingHour = schedule.TimeStart.Hour;
-                    int EndingHour;
-                    if (schedule.TimeEnd.Minute == 59)
-                    {
-                        EndingHour = 24;
-                    }
-                    else
-                    {
-                        EndingHour = schedule.TimeEnd.Hour;
-                    }
+                    int rowIndex = schedule.TimeStart.Hour;
 
-                    for (int i = StartingHour; i < EndingHour; i++)
-                    {
-                        dataGridView_schedule.Rows[i].Cells[colIndex].Style.BackColor = Color.Green;
-                        dataGridView_schedule.Rows[i].Cells[colIndex].Style.ForeColor = Color.White;
-                        dataGridView_schedule.Rows[i].Cells[colIndex].Value = Rooms.ToList().Find(x => x.ID == schedule.Room_ID).Number;
-                    }
+                    dataGridView_schedule.Rows[rowIndex].Cells[colIndex].Style.BackColor = Color.Green;
+                    dataGridView_schedule.Rows[rowIndex].Cells[colIndex].Style.ForeColor = Color.White;
+                    dataGridView_schedule.Rows[rowIndex].Cells[colIndex].Value = Rooms.ToList().Find(x => x.ID == schedule.Room_ID).Number;
                 }
             }
         }
@@ -259,57 +247,49 @@ namespace Z3_F
                         }
                         else
                         {
-                            //int Doctor_ID
+                            WorkScheduleModel NewSchedule = new WorkScheduleModel();
+
+                            //Room_ID
+                            using (AddSchedule_EnterRoom ChooseRoomDialog = new AddSchedule_EnterRoom(Cursor.Position.X, Cursor.Position.Y, FreeRooms))
+                            {
+                                if (ChooseRoomDialog.ShowDialog() == DialogResult.OK)
+                                {
+                                    NewSchedule.Room_ID = ChooseRoomDialog.ChosenRoom;
+                                }
+                                else
+                                {
+                                    CurrentColumn = -1;
+                                    dataGridView_schedule.ClearSelection();
+                                    return;
+                                }
+                            }
+
+                            //Doctor_ID;
                             int newDoctor_ID = int.Parse(Doctors[dataGridView_schedule.SelectedCells[0].ColumnIndex - 1].ID.ToString());
+                            NewSchedule.Doctor_ID = newDoctor_ID;
 
-                            //DateTime Date
-                            DateTime newDate = new DateTime(
-                                    monthCalendar_schedule.SelectionStart.Date.Year,
-                                    monthCalendar_schedule.SelectionStart.Date.Month,
-                                    monthCalendar_schedule.SelectionStart.Date.Day);
-
-                            //DateTime TimeStart
-                            DateTime newTimeStart = new DateTime(
-                                    monthCalendar_schedule.SelectionStart.Date.Year,
-                                    monthCalendar_schedule.SelectionStart.Date.Month,
-                                    monthCalendar_schedule.SelectionStart.Date.Day,
-                                    StartingHour,
-                                    0,
-                                    0);
-
-                            //DateTime TimeEnd
-                            DateTime newTimeEnd;
-                            if (EndingHour + 1 == 24)
+                            foreach (DataGridViewCell cell in dataGridView_schedule.SelectedCells)
                             {
-                                newTimeEnd = new DateTime(
-                                monthCalendar_schedule.SelectionStart.Date.Year,
-                                monthCalendar_schedule.SelectionStart.Date.Month,
-                                monthCalendar_schedule.SelectionStart.Date.Day,
-                                EndingHour,
-                                59,
-                                59);
+                                //Date
+                                DateTime newDate = new DateTime(
+                                        monthCalendar_schedule.SelectionStart.Date.Year,
+                                        monthCalendar_schedule.SelectionStart.Date.Month,
+                                        monthCalendar_schedule.SelectionStart.Date.Day);
+
+                                //TimeStart
+                                DateTime newTimeStart = new DateTime(
+                                        monthCalendar_schedule.SelectionStart.Date.Year,
+                                        monthCalendar_schedule.SelectionStart.Date.Month,
+                                        monthCalendar_schedule.SelectionStart.Date.Day,
+                                        cell.RowIndex,
+                                        0,
+                                        0);
+
+                                NewSchedule.Date = newDate;
+                                NewSchedule.TimeStart = newTimeStart;
+
+                                DataAccess.InsertSchedule(NewSchedule);
                             }
-                            else
-                            {
-                                newTimeEnd = new DateTime(
-                                monthCalendar_schedule.SelectionStart.Date.Year,
-                                monthCalendar_schedule.SelectionStart.Date.Month,
-                                monthCalendar_schedule.SelectionStart.Date.Day,
-                                EndingHour + 1,
-                                0,
-                                0);
-                            }
-
-                            WorkScheduleModel NewSchedule = new WorkScheduleModel
-                            {
-                                Doctor_ID = newDoctor_ID,
-                                Date = newDate,
-                                TimeStart = newTimeStart,
-                                TimeEnd = newTimeEnd
-                            };
-
-                            AddSchedule_EnterRoom ChooseRoomDialog = new AddSchedule_EnterRoom(Cursor.Position.X, Cursor.Position.Y, NewSchedule, FreeRooms);
-                            ChooseRoomDialog.ShowDialog();
                             ReadSchedule(false);
                         }
                     }
@@ -319,23 +299,14 @@ namespace Z3_F
                     foreach (DataGridViewCell cell in dataGridView_schedule.SelectedCells)
                     {
                         //might need to work a lil bit more on that one xDD
-                        WorkScheduleModel ScheduleToEdit = Schedule.ToList().Find(
+                        WorkScheduleModel ScheduleToDelete = Schedule.ToList().Find(
                         x => (Doctors.ToList().FindIndex(y => y.ID == x.Doctor_ID)) == cell.ColumnIndex - 1
                         && x.Date.ToShortDateString() == monthCalendar_schedule.SelectionStart.ToShortDateString()
-                        && x.TimeStart.Hour <= cell.RowIndex
-                        && x.TimeEnd.Hour > cell.RowIndex);
+                        && x.TimeStart.Hour == cell.RowIndex);
 
-                        if (ScheduleToEdit != null)
+                        if (ScheduleToDelete != null)
                         {
-                            if (cell.RowIndex - ScheduleToEdit.TimeStart.Hour < ScheduleToEdit.TimeEnd.Hour - cell.RowIndex)
-                            {
-                                ScheduleToEdit.TimeStart = ScheduleToEdit.TimeStart.AddHours((cell.RowIndex + 1) - ScheduleToEdit.TimeStart.Hour);
-                            }
-                            else
-                            {
-                                ScheduleToEdit.TimeEnd = ScheduleToEdit.TimeEnd.AddHours(cell.RowIndex - ScheduleToEdit.TimeEnd.Hour);
-                            }
-                            DataAccess.UpdateSchedule(ScheduleToEdit);
+                            DataAccess.DeleteSchedule(ScheduleToDelete);
                             ReadSchedule(false);
                         }
                     }
@@ -367,6 +338,14 @@ namespace Z3_F
             else
             {
                 return;
+            }
+        }
+
+        private void dataGridView_schedule_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (MouseButtons.HasFlag(MouseButtons.Right))
+            {
+                dataGridView_schedule.Rows[e.RowIndex].Cells[CurrentColumn].Selected = true;
             }
         }
 

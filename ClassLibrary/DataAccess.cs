@@ -176,7 +176,6 @@ namespace Data
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                var output = cnn.Query<RoomModel>("select * from Rooms order by Number", new DynamicParameters());
                 cnn.Execute("insert into Schedule (Doctor_ID,Date,TimeStart,TimeEnd,Room_ID) values (@Doctor_ID,@Date,@TimeStart,@TimeEnd,@Room_ID)", NewSchedule);
             }
         }
@@ -250,21 +249,6 @@ namespace Data
 
         #region Update Data
 
-        public static void UpdateSchedule(WorkScheduleModel ScheduleToUpdate)
-        {
-            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
-            {
-                if (ScheduleToUpdate.TimeStart != ScheduleToUpdate.TimeEnd)
-                {
-                    cnn.Execute("update Schedule SET TimeStart = @TimeStart,TimeEnd = @TimeEnd WHERE ID = @ID ", ScheduleToUpdate);
-                }
-                else
-                {
-                    cnn.Execute("delete from Schedule where ID = @ID", ScheduleToUpdate);
-                }
-            }
-        }
-
         public static void UpdateRoom(RoomModel RoomToUpdate)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
@@ -336,9 +320,25 @@ namespace Data
             }
         }
 
+        public static void UpdateAppointment(AppointmentModel AppointmentToUpdate)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("update Appointments set Specialization_ID = @Specialization_ID, Patient_ID = @Patient_ID, Doctor_ID = @Doctor_ID, DateAndTime = @DateAndTime, Room_ID = @Room_ID where ID = @ID", AppointmentToUpdate);
+            }
+        }
+
         #endregion Update Data
 
         #region Delete Data
+
+        public static void DeleteSchedule(WorkScheduleModel ScheduleToUpdate)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("delete from Schedule where ID = @ID", ScheduleToUpdate);
+            }
+        }
 
         public static void DeleteRoom(RoomModel RoomToDelete)
         {

@@ -466,6 +466,7 @@
             this.dataGridView_schedule.Size = new System.Drawing.Size(987, 622);
             this.dataGridView_schedule.TabIndex = 2;
             this.dataGridView_schedule.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_schedule_CellMouseDown);
+            this.dataGridView_schedule.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_schedule_CellMouseEnter);
             this.dataGridView_schedule.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.dataGridView_schedule_CellStateChanged);
             this.dataGridView_schedule.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dataGridView_schedule_MouseUp);
             // 

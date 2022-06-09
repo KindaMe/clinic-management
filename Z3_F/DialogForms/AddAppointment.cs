@@ -10,6 +10,7 @@ namespace Z3_F.DialogForms
     public partial class AddAppointment : Form
     {
         private bool IsEditing = false;
+        private AppointmentModel AppointmentToEdit;
 
         private PatientModel ChosenPatient;
 
@@ -47,6 +48,7 @@ namespace Z3_F.DialogForms
             InitializeComponent();
 
             IsEditing = true;
+            this.AppointmentToEdit = AppointmentToEdit;
 
             InitData();
 
@@ -142,7 +144,7 @@ namespace Z3_F.DialogForms
                 if (ConstructorFinished == true)
                 {
                     monthCalendar1.SelectionStart = DateTime.Now;
-                    MessageBox.Show("Brak wolnych wizyt!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("Brak wolnych wizyt!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -173,7 +175,7 @@ namespace Z3_F.DialogForms
                 {
                     DateTime PivotTime = schedule.TimeStart;
 
-                    while (PivotTime < schedule.TimeEnd)
+                    while (PivotTime < schedule.TimeStart.AddHours(1))//fix that later
                     {
                         if (!Appointments.ToList().Exists(x => x.DateAndTime.ToShortTimeString() == PivotTime.ToShortTimeString()))
                         {
@@ -258,12 +260,20 @@ namespace Z3_F.DialogForms
                     };
 
                     DataAccess.InsertAppointment(NewAppointment);
-                    MessageBox.Show("Wizyta została dodana pomyślnie!\nNumer gabinetu - " + Rooms.ToList().Find(x => x.ID == NewAppointment.Room_ID).Number + ".", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Wizyta została dodana pomyślnie!\nNumer gabinetu - " + NewAppointment.Room + ".", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
                 {
-                    //update appointment in db
+                    AppointmentToEdit.Specialization_ID = ((SpecializationModel)comboBox1.SelectedItem).ID;
+                    AppointmentToEdit.Patient_ID = ChosenPatient.ID;
+                    AppointmentToEdit.Doctor_ID = ((DoctorModel)comboBox2.SelectedItem).ID;
+                    AppointmentToEdit.DateAndTime = ((FreeAppointments)listBox1.SelectedItem).time;
+                    AppointmentToEdit.Room_ID = ((FreeAppointments)listBox1.SelectedItem).Room_ID;
+
+                    DataAccess.UpdateAppointment(AppointmentToEdit);
+                    MessageBox.Show("Wizyta została zaktualizowana pomyślnie!\nNumer gabinetu - " + AppointmentToEdit.Room + ".", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Close();
                 }
             }
             else

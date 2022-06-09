@@ -7,18 +7,18 @@ namespace Z3_F.DialogForms
 {
     public partial class AddSchedule_EnterRoom : Form
     {
+        public int ChosenRoom { get; set; }
+
         private int LocationX;
         private int LocationY;
-        private WorkScheduleModel NewSchedule;
         private List<RoomModel> FreeRooms;
 
-        public AddSchedule_EnterRoom(int CursorX, int CursorY, WorkScheduleModel NewSchedule, List<RoomModel> FreeRooms)
+        public AddSchedule_EnterRoom(int CursorX, int CursorY, List<RoomModel> FreeRooms)
         {
             InitializeComponent();
 
             LocationX = CursorX;
             LocationY = CursorY;
-            this.NewSchedule = NewSchedule;
             this.FreeRooms = FreeRooms;
             comboBox1.DataSource = FreeRooms;
         }
@@ -35,11 +35,8 @@ namespace Z3_F.DialogForms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            NewSchedule.Room_ID = ((RoomModel)comboBox1.SelectedItem).ID;
-
-            //prolly should just delete all schedules for a doctor in a currently chosen day and run a loop through rows to make new schedules for connected hours
-            DataAccess.InsertSchedule(NewSchedule);
-
+            ChosenRoom = ((RoomModel)comboBox1.SelectedItem).ID;
+            DialogResult = DialogResult.OK;
             this.Close();
         }
     }
