@@ -390,11 +390,18 @@ namespace Z3_F
         {
             if (dataGridView_Appointments.SelectedRows.Count > 0)
             {
-                using (AddAppointment AddAppointmentDialog = new AddAppointment((AppointmentModel)dataGridView_Appointments.SelectedRows[0].DataBoundItem))
+                if (((AppointmentModel)dataGridView_Appointments.SelectedRows[0].DataBoundItem).DateAndTime < DateTime.Now)
                 {
-                    AddAppointmentDialog.ShowDialog();
+                    MessageBox.Show("Nie możesz edytować wizyty która już się odbyła!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-                ReadAppointment();
+                else
+                {
+                    using (AddAppointment AddAppointmentDialog = new AddAppointment((AppointmentModel)dataGridView_Appointments.SelectedRows[0].DataBoundItem))
+                    {
+                        AddAppointmentDialog.ShowDialog();
+                    }
+                    ReadAppointment();
+                }
             }
         }
 
