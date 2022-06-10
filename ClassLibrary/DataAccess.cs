@@ -332,11 +332,17 @@ namespace Data
 
         #region Delete Data
 
-        public static void DeleteSchedule(WorkScheduleModel ScheduleToUpdate)
+        public static void DeleteSchedule(WorkScheduleModel ScheduleToDelete)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("delete from Schedule where ID = @ID", ScheduleToUpdate);
+                cnn.Execute("DELETE FROM Appointments " +
+                    "WHERE Doctor_ID = @Doctor_ID AND " +
+                    "Room_ID = @Room_ID AND " +
+                    "DateAndTime >= @TimeStart AND " +
+                    "DateAndTime < datetime(@TimeStart, '+1 hour')", ScheduleToDelete);
+
+                cnn.Execute("delete from Schedule where ID = @ID", ScheduleToDelete);
             }
         }
 

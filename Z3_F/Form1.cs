@@ -298,7 +298,6 @@ namespace Z3_F
                 {
                     foreach (DataGridViewCell cell in dataGridView_schedule.SelectedCells)
                     {
-                        //might need to work a lil bit more on that one xDD
                         WorkScheduleModel ScheduleToDelete = Schedule.ToList().Find(
                         x => (Doctors.ToList().FindIndex(y => y.ID == x.Doctor_ID)) == cell.ColumnIndex - 1
                         && x.Date.ToShortDateString() == monthCalendar_schedule.SelectionStart.ToShortDateString()
@@ -308,6 +307,7 @@ namespace Z3_F
                         {
                             DataAccess.DeleteSchedule(ScheduleToDelete);
                             ReadSchedule(false);
+                            ReadAppointment();
                         }
                     }
                 }
