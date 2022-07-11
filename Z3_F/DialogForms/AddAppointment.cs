@@ -178,7 +178,7 @@ namespace Z3_F.DialogForms
 
                     while (PivotTime < schedule.TimeStart.AddHours(1))//fix that later
                     {
-                        if (!Appointments.ToList().Exists(x => x.DateAndTime.ToShortTimeString() == PivotTime.ToShortTimeString()))
+                        if (!Appointments.ToList().Exists(x => x.DateAndTime.ToString() == PivotTime.ToString() && x.Doctor_ID == ((DoctorModel)comboBox2.SelectedItem).ID))
                         {
                             FreeAppointments appointment = new FreeAppointments
                             {

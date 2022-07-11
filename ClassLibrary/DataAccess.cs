@@ -15,7 +15,22 @@ namespace Data
 
         private static string LoadConnectionString(string id = "Default")
         {
-            return ConfigurationManager.ConnectionStrings[id].ConnectionString;
+            //web connectionstring workaround - placeholder
+            string BaseDirPath = AppDomain.CurrentDomain.BaseDirectory;
+            string DesktopAppDbDirPath;
+
+            if (BaseDirPath.Contains("Web"))
+            {
+                DesktopAppDbDirPath = BaseDirPath.Replace("Web\\", "Z3_F\\bin\\Debug\\DB.db;");
+            }
+            else
+            {
+                DesktopAppDbDirPath = BaseDirPath + "DB.db;";
+            }
+
+            string CnnString = "Data Source=" + DesktopAppDbDirPath + "Version=3;";
+
+            return CnnString;
         }
 
         #endregion Connection String
@@ -167,6 +182,23 @@ namespace Data
         }
 
         #endregion Appointment View
+
+        #region WebApp
+
+        public static BindingList<DoctorModel> GetDoctorsWithSpecialization(SpecializationModel SelectedSpecialization)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<DoctorModel>("select Doctors.ID,Doctors.FirstName,Doctors.LastName,Doctors.BeganWorkYear  from Doctors_Specializations " +
+                    "inner join Doctors on Doctors_Specializations.Doctor_ID = Doctors.ID " +
+                    "where Specialization_ID = @ID", SelectedSpecialization);
+                BindingList<DoctorModel> temp = new BindingList<DoctorModel>(output.ToList());
+
+                return temp;
+            }
+        }
+
+        #endregion WebApp
 
         #endregion Select Data
 

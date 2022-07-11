@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desktop", "Z3_F\Desktop.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "ClassLibrary\Data.csproj", "{2754FD47-2BC8-432B-B9A3-3D4C520AB40D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{71681373-0ACC-4186-826A-C662EA53A261}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2754FD47-2BC8-432B-B9A3-3D4C520AB40D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2754FD47-2BC8-432B-B9A3-3D4C520AB40D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2754FD47-2BC8-432B-B9A3-3D4C520AB40D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71681373-0ACC-4186-826A-C662EA53A261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71681373-0ACC-4186-826A-C662EA53A261}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71681373-0ACC-4186-826A-C662EA53A261}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71681373-0ACC-4186-826A-C662EA53A261}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
